@@ -200,6 +200,13 @@
     white-space: nowrap;
     background: transparent;
   }
+  .bar-right { display: inline-flex; align-items: center; gap: 22px; }
+  .bar-nav { display: inline-flex; gap: 22px; }
+  .bar-nav a {
+    font-family: var(--mono); font-size: 12.5px; font-weight: 500; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--ink-2); transition: color .2s ease;
+  }
+  .bar-nav a:hover { color: var(--accent-ink); }
   .bar-cta:hover { border-color: var(--accent); color: var(--accent-ink); }
   .bar-cta .arr { color: var(--accent); transition: color .25s ease; }
   /* After the hero scrolls past, the bar CTA fills with the accent for contrast */
@@ -733,7 +740,10 @@
       <a class="wordmark" href="#top">Hypervelocity<span class="hv-dot">.</span></a>
       <span class="brand-desc">Production AI · Agentic Systems</span>
     </div>
-    <a class="bar-cta" href="mailto:contact@hypervelocity.io">Talk to us <span class="arr">→</span></a>
+    <div class="bar-right">
+      <nav class="bar-nav" aria-label="Primary"><a href="about.html">About</a></nav>
+      <a class="bar-cta" href="mailto:contact@hypervelocity.io">Talk to us <span class="arr">→</span></a>
+    </div>
   </div>
 </header>
 
@@ -943,6 +953,7 @@
       <a href="#capabilities">CAPABILITIES</a>
       <a href="#agent-readiness">PRODUCTION-READY AGENTS</a>
       <a href="#method">HOW WE WORK</a>
+      <a href="about.html">ABOUT</a>
       <a href="#contact">CONTACT</a>
     </nav>
   </div>

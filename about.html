@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About | Hypervelocity — The team behind production AI</title>
+<meta name="description" content="The founders and advisors behind Hypervelocity. Senior engineers and AI leaders who design, build, and operate production AI systems and agentic workflows.">
+<link rel="canonical" href="https://hypervelocity.io/about">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Hypervelocity">
+<meta property="og:title" content="About | Hypervelocity">
+<meta property="og:description" content="The people who actually build your AI. Founders and advisors behind Hypervelocity.">
+<meta property="og:url" content="https://hypervelocity.io/about">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="About | Hypervelocity">
+<meta name="twitter:description" content="The people who actually build your AI. Founders and advisors behind Hypervelocity.">
+
+<!-- Structured data: the people (good for entity / AEO) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Hypervelocity",
+    "url": "https://hypervelocity.io/",
+    "founder": [
+      {
+        "@type": "Person",
+        "name": "Raghotham S",
+        "jobTitle": "CEO & Co-Founder",
+        "worksFor": { "@type": "Organization", "name": "Hypervelocity" },
+        "alumniOf": ["PayPal", "Ericsson Research"],
+        "knowsAbout": ["Applied AI", "Agentic systems", "Document AI", "Production AI engineering", "Small language models"]
+      },
+      {
+        "@type": "Person",
+        "name": "Shrayas R",
+        "jobTitle": "CTO & Co-Founder",
+        "worksFor": { "@type": "Organization", "name": "Hypervelocity" },
+        "alumniOf": ["SAP"],
+        "knowsAbout": ["Distributed systems", "Scalable software", "Platform engineering", "Open source"]
+      }
+    ]
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #16191d;
+    --ink-2: #5d636b;
+    --ink-3: #8a9099;
+    --line: #e4e6ea;
+    --line-2: #eef0f2;
+    --ground: #ffffff;
+    --ground-2: #f7f8f9;
+    --accent: oklch(0.625 0.214 27);
+    --accent-ink: oklch(0.55 0.21 27);
+
+    --maxw: 1180px;
+    --pad: clamp(20px, 5vw, 64px);
+    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --sans: "Geist", system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { font-family: var(--sans); color: var(--ink); background: var(--ground); line-height: 1.5; font-size: 17px; }
+  ::selection { background: var(--accent); color: #fff; }
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+
+  /* ---------- Eyebrow ---------- */
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3);
+    display: inline-flex; align-items: center; gap: 9px; white-space: nowrap;
+  }
+  .eyebrow .tick { width: 22px; height: 1px; background: var(--accent); display: inline-block; }
+
+  /* ---------- Top bar (matches homepage) ---------- */
+  header.bar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .wordmark { font-weight: 600; font-size: 18px; letter-spacing: -0.02em; display: inline-flex; align-items: baseline; gap: 0; }
+  .wordmark .hv-dot { color: var(--accent); }
+  .brand-lockup { display: inline-flex; align-items: center; gap: 12px; }
+  .brand-desc {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ink-3); padding-left: 12px; border-left: 1px solid var(--line); white-space: nowrap;
+  }
+  .bar-right { display: inline-flex; align-items: center; gap: 22px; }
+  .bar-nav { display: inline-flex; gap: 22px; }
+  .bar-nav a {
+    font-family: var(--mono); font-size: 12.5px; font-weight: 500; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--ink-2); transition: color .2s ease;
+  }
+  .bar-nav a:hover { color: var(--accent-ink); }
+  .bar-nav a.is-current { color: var(--ink); }
+  @media (max-width: 560px) {
+    .brand-lockup { gap: 7px; }
+    .brand-desc { font-size: 0; letter-spacing: 0.08em; padding-left: 7px; }
+    .brand-desc::after { content: "AI · AGENTIC"; font-size: 8.5px; }
+    .bar-right { gap: 14px; }
+  }
+  .bar-cta {
+    font-family: var(--mono); font-size: 12.5px; font-weight: 500; letter-spacing: 0.04em;
+    color: #fff; border: 1px solid var(--accent); background: var(--accent);
+    padding: 9px 15px; border-radius: 2px;
+    transition: background .25s ease, border-color .25s ease, color .25s ease;
+    display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+  }
+  .bar-cta:hover { background: var(--accent-ink); border-color: var(--accent-ink); }
+  .bar-cta .arr { color: #fff; }
+
+  /* ---------- Buttons ---------- */
+  .btn-primary {
+    background: var(--accent); color: #fff; font-weight: 500; font-size: 15.5px;
+    padding: 13px 22px; border-radius: 2px; display: inline-flex; align-items: center; gap: 10px;
+    transition: background .18s ease;
+  }
+  .btn-primary:hover { background: var(--accent-ink); }
+  .btn-primary .arr { transition: transform .2s ease; }
+  .btn-primary:hover .arr { transform: translateX(3px); }
+
+  /* ---------- Page header ---------- */
+  .page-head { border-bottom: 1px solid var(--line); }
+  .page-head-inner { padding: clamp(56px, 10vh, 120px) 0 clamp(44px, 7vh, 80px); }
+  .page-head h1 {
+    font-size: clamp(40px, 7vw, 88px); font-weight: 500; line-height: 0.98;
+    letter-spacing: -0.035em; margin-top: 20px; text-wrap: balance;
+  }
+  .page-head h1 .em { color: var(--accent); }
+  .page-head .sub {
+    margin-top: 22px; font-size: clamp(16px, 1.4vw, 19px); color: var(--ink-2);
+    max-width: 40em; line-height: 1.55; text-wrap: pretty;
+  }
+
+  /* ---------- Section scaffolding ---------- */
+  section { border-bottom: 1px solid var(--line); }
+  .sec-pad { padding-top: clamp(56px, 8vw, 100px); padding-bottom: clamp(56px, 8vw, 100px); }
+  .sec-label { margin-bottom: clamp(36px, 5vw, 56px); }
+  .sec-label h2 {
+    font-size: clamp(24px, 2.8vw, 34px); font-weight: 500; line-height: 1.05;
+    letter-spacing: -0.03em; margin-top: 16px; text-wrap: balance;
+  }
+  .sec-label .lead { margin-top: 14px; color: var(--ink-2); font-size: 17px; max-width: 38em; text-wrap: pretty; }
+
+  /* ---------- People grid (founders) ---------- */
+  .people {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(28px, 4vw, 56px);
+  }
+  .person { display: flex; flex-direction: column; }
+
+  /* Portrait: 4:5, B&W, hairline border, normalized crop */
+  .portrait {
+    position: relative; aspect-ratio: 4 / 5; width: 100%;
+    border: 1px solid var(--line); border-radius: 3px; overflow: hidden;
+    background: var(--ground-2);
+  }
+  .portrait img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center top;
+    filter: grayscale(1) contrast(1.04);
+  }
+  /* Placeholder state (no photo yet) */
+  .portrait.is-empty { display: grid; place-items: center; }
+  .portrait.is-empty .initials {
+    font-family: var(--mono); font-size: clamp(40px, 6vw, 64px); font-weight: 500;
+    color: #c3c8ce; letter-spacing: 0.02em;
+  }
+  .portrait.is-empty::after {
+    content: "ADD PHOTO"; position: absolute; bottom: 12px; left: 0; right: 0; text-align: center;
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.18em; color: var(--ink-3);
+  }
+
+  .person-meta { margin-top: 22px; }
+  .person-name { font-size: 26px; font-weight: 500; letter-spacing: -0.02em; }
+  .person-role { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink); margin-top: 7px; }
+  .person-bio { margin-top: 16px; color: var(--ink-2); font-size: 16px; line-height: 1.62; text-wrap: pretty; }
+
+  /* Proof chips (founders only) */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .chips span {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.03em; color: var(--ink-2);
+    border: 1px solid var(--line); border-radius: 2px; padding: 5px 9px; white-space: nowrap;
+  }
+  .chips span:first-child { border-color: oklch(0.625 0.214 27 / 0.4); color: var(--accent-ink); }
+
+  /* ---------- Advisors (recessed band, smaller) ---------- */
+  .advisors { background: var(--ground-2); }
+  .advisors-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 4vw, 56px);
+  }
+  .advisor { display: flex; gap: 20px; align-items: flex-start; }
+  .advisor .portrait { width: 120px; flex: none; background: var(--ground); }
+  .advisor .portrait.is-empty .initials { font-size: 30px; }
+  .advisor .portrait.is-empty::after { font-size: 8px; bottom: 8px; }
+  .advisor-meta { padding-top: 4px; }
+  .advisor-name { font-size: 20px; font-weight: 500; letter-spacing: -0.02em; }
+  .advisor-auth { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.05em; color: var(--accent-ink); margin-top: 6px; text-transform: uppercase; }
+  .advisor-note { margin-top: 12px; color: var(--ink-2); font-size: 15px; line-height: 1.55; text-wrap: pretty; }
+
+  /* ---------- CTA close (mirrors homepage) ---------- */
+  .close-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(36px,6vw,80px); align-items: end; }
+  .close h2 { font-size: clamp(30px, 4vw, 52px); font-weight: 500; line-height: 1.0; letter-spacing: -0.035em; text-wrap: balance; }
+  .close h2 .em { color: var(--accent); }
+  .close .body { color: var(--ink-2); font-size: 17px; line-height: 1.6; text-wrap: pretty; }
+  .close-actions { margin-top: 28px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+
+  /* ---------- Footer (matches homepage) ---------- */
+  footer { padding: 30px 0; }
+  .foot-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: var(--ink-3); flex-wrap: wrap; gap: 12px;
+  }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .foot-inner a:hover { color: var(--accent-ink); }
+
+  /* ---------- Reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 760px) {
+    .people { grid-template-columns: 1fr; gap: 48px; }
+    .advisors-grid { grid-template-columns: 1fr; gap: 32px; }
+    .close-grid { grid-template-columns: 1fr; gap: 28px; }
+    .portrait { max-width: 360px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap bar-inner">
+    <div class="brand-lockup">
+      <a class="wordmark" href="index.html">Hypervelocity<span class="hv-dot">.</span></a>
+      <span class="brand-desc">Production AI · Agentic Systems</span>
+    </div>
+    <div class="bar-right">
+      <nav class="bar-nav" aria-label="Primary">
+        <a href="about.html" class="is-current" aria-current="page">About</a>
+      </nav>
+      <a class="bar-cta" href="mailto:contact@hypervelocity.io">Talk to us <span class="arr">→</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- PAGE HEADER -->
+  <section class="page-head">
+    <div class="wrap">
+      <div class="page-head-inner">
+        <span class="eyebrow"><span class="tick"></span>ABOUT</span>
+        <h1>The people who build your <span class="em">AI.</span></h1>
+        <p class="sub">Hypervelocity is led by engineers who have spent over a decade building AI and large-scale systems in production, long before it was the thing to do. Here is the experience behind the work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDERS -->
+  <section class="founders">
+    <div class="wrap sec-pad">
+      <div class="sec-label reveal">
+        <span class="eyebrow"><span class="tick"></span>FOUNDERS</span>
+        <h2>Two engineers who have shipped AI in the real world.</h2>
+      </div>
+
+      <div class="people">
+        <!-- Raghotham -->
+        <div class="person reveal">
+          <div class="portrait">
+            <img src="images/raghotham.png" alt="Raghotham S" loading="lazy" width="800" height="1000">
+          </div>
+          <div class="person-meta">
+            <div class="person-name">Raghotham S</div>
+            <div class="person-role">CEO &amp; Co-Founder</div>
+            <p class="person-bio">Raghotham brings deep experience building AI products, platforms, and applied engineering teams across global enterprises and startups. His work has spanned self-service agents, enterprise search, AI-powered support, trust and safety systems, healthcare vision models, and SLMs. He combines hands-on technical depth with product judgment and team-building experience, helping turn complex AI capabilities into systems that work reliably at scale, and holds multiple patents across payments and machine learning. A frequent speaker at AI and technology conferences, Raghotham regularly shares lessons from his work in applied AI, agentic systems, and production-scale AI engineering. At Hypervelocity, he leads the company's vision to help businesses move from AI prototypes to production-grade systems that create measurable impact.</p>
+            <div class="chips">
+              <span>Ex-PayPal</span>
+              <span>Ex-Ericsson Research</span>
+              <span>Agentic systems</span>
+              <span>Trust &amp; safety</span>
+              <span>Conference speaker</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shrayas -->
+        <div class="person reveal">
+          <div class="portrait">
+            <img src="images/shrayas.jpg" alt="Shrayas R" loading="lazy" width="800" height="1000">
+          </div>
+          <div class="person-meta">
+            <div class="person-name">Shrayas R</div>
+            <div class="person-role">CTO &amp; Co-Founder</div>
+            <p class="person-bio">Shrayas is an engineering leader with a strong foundation in building high-performance software platforms across research, infrastructure, mobile, and web systems. He has architected core platforms for complex, data-intensive environments and led product engineering efforts that delivered meaningful value to businesses and their customers. Known for his depth in system design and execution, Shrayas brings a pragmatic, quality-first approach to building software that lasts. He also contributes to the broader technology community through open source and by co-organizing developer community initiatives. At Hypervelocity, he leads the engineering vision for reliable, scalable, production-grade technology.</p>
+            <div class="chips">
+              <span>Ex-SAP</span>
+              <span>System design</span>
+              <span>Platform engineering</span>
+              <span>Data-intensive systems</span>
+              <span>Open source</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADVISORS -->
+  <section class="advisors">
+    <div class="wrap sec-pad">
+      <div class="sec-label reveal">
+        <span class="eyebrow"><span class="tick"></span>ADVISORS</span>
+        <h2>Senior operators in our corner.</h2>
+        <p class="lead">People we trust, who help us see around corners. Profiles coming soon.</p>
+      </div>
+
+      <div class="advisors-grid">
+        <div class="advisor reveal">
+          <div class="portrait"><img src="images/nischal.png" alt="Nischal HP" loading="lazy" width="400" height="500"></div>
+          <div class="advisor-meta">
+            <div class="advisor-name">Nischal HP</div>
+            <div class="advisor-auth">AI Executive · 13+ Years</div>
+            <p class="advisor-note">AI executive and advisor with 13+ years of experience moving complex AI systems from zero-to-one into highly scalable production. A proven leader who has built elite engineering and AI teams across algorithmic trading, supply chain, and climate tech, Nischal now advises high-growth startups on architecting defensible AI moats and scaling rigorous engineering cultures.</p>
+          </div>
+        </div>
+
+        <div class="advisor reveal">
+          <div class="portrait"><img src="images/bargava.png" alt="Bargava Subramanian" loading="lazy" width="400" height="500"></div>
+          <div class="advisor-meta">
+            <div class="advisor-name">Bargava Subramanian</div>
+            <div class="advisor-auth">3x Founder · Healthcare AI</div>
+            <p class="advisor-note">Bargava is a 3x founder, startup veteran, and serial entrepreneur with a successful exit under his belt. His diverse professional foundations track from Wall Street finance and Hollywood media to deep tech, culminating in a strong focus on architecting complex Healthcare AI systems. He leverages this multidimensional expertise to advise high-growth startups on product strategy, interface trust, and scaling lean teams.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA CLOSE -->
+  <section class="close" id="contact">
+    <div class="wrap sec-pad">
+      <div class="close-grid">
+        <div class="reveal">
+          <span class="eyebrow"><span class="tick"></span>GET IN TOUCH</span>
+          <h2 style="margin-top:18px;">Let's point you in the <span class="em">right direction.</span></h2>
+        </div>
+        <div class="reveal">
+          <p class="body">Tell us where you are on your AI journey. We'll show you the fastest line to where you need to be.</p>
+          <div class="close-actions">
+            <a class="btn-primary" href="mailto:contact@hypervelocity.io">contact@hypervelocity.io <span class="arr">→</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <span>HYPERVELOCITY © 2026</span>
+    <span class="foot-desc">PRODUCTION AI · AI AGENTS · AGENTIC SYSTEMS · APPLIED AI</span>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="index.html">HOME</a>
+      <a href="about.html">ABOUT</a>
+      <a href="mailto:contact@hypervelocity.io">CONTACT</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>

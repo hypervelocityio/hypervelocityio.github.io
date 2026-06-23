@@ -616,6 +616,28 @@
     margin-top: 6px;
     text-transform: uppercase;
   }
+  .text-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 13px; font-weight: 500; letter-spacing: 0.03em;
+    color: var(--accent-ink); margin-top: 28px;
+    border-bottom: 1px solid transparent; padding-bottom: 2px;
+    transition: border-color .2s ease;
+  }
+  .text-link:hover { border-color: var(--accent); }
+  .text-link .arr { transition: transform .2s ease; }
+  .text-link:hover .arr { transform: translateX(3px); }
+
+  /* founder mini-cards in the proof section */
+  .founder-peek { display: flex; gap: 18px; margin-top: 34px; }
+  .fp { display: flex; flex-direction: column; max-width: 150px; }
+  .fp-portrait {
+    aspect-ratio: 4 / 5; width: 100%; border: 1px solid var(--line); border-radius: 3px;
+    overflow: hidden; background: var(--ground-2); display: grid; place-items: center;
+  }
+  .fp-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(1) contrast(1.04); }
+  .fp-portrait .initials { font-family: var(--mono); font-size: 30px; font-weight: 500; color: #c3c8ce; }
+  .fp-name { font-size: 16px; font-weight: 500; letter-spacing: -0.01em; margin-top: 12px; }
+  .fp-role { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); margin-top: 4px; }
 
   /* ---------- Close ---------- */
   .close { }
@@ -887,6 +909,19 @@
         <div class="reveal">
           <span class="eyebrow"><span class="tick"></span>WHY HYPERVELOCITY</span>
           <h2 style="line-height: 1">We are experts who have shipped hardened, time-tested, comprehensive systems before.</h2>
+          <div class="founder-peek">
+            <div class="fp">
+              <div class="fp-portrait"><img src="images/raghotham.png" alt="Raghotham S" loading="lazy" width="800" height="1000"></div>
+              <div class="fp-name">Raghotham S</div>
+              <div class="fp-role">CEO &amp; Co-Founder</div>
+            </div>
+            <div class="fp">
+              <div class="fp-portrait"><img src="images/shrayas.jpg" alt="Shrayas R" loading="lazy" width="800" height="1000"></div>
+              <div class="fp-name">Shrayas R</div>
+              <div class="fp-role">CTO &amp; Co-Founder</div>
+            </div>
+          </div>
+          <a class="text-link" href="about.html">Meet the founders and advisors <span class="arr">→</span></a>
         </div>
         <div class="reveal">
           <div class="body">

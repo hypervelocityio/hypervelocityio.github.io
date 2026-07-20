@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study | Offline edge vision on a 240ms cycle time | Hypervelocity</title>
+<meta name="description" content="How Hypervelocity automated a manual visual validation step for an Indian manufacturer with a fully offline edge vision system: 92% top-1 accuracy, 100ms inference, and 70% of manual data-entry events eliminated.">
+<link rel="canonical" href="https://hypervelocity.io/case-studies/edge-ai">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Hypervelocity">
+<meta property="og:title" content="Offline edge vision on a 240ms cycle time">
+<meta property="og:description" content="A fully offline vision system on existing edge hardware: 92% top-1 accuracy, 100ms inference, and 127 minutes saved per operator each day.">
+<meta property="og:url" content="https://hypervelocity.io/case-studies/edge-ai">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Offline edge vision on a 240ms cycle time">
+<meta name="twitter:description" content="A fully offline vision system on existing edge hardware: 92% top-1 accuracy, 100ms inference, and 127 minutes saved per operator each day.">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Edge AI for Manufacturing Operational Efficiency",
+  "description": "How Hypervelocity automated a manual visual validation step on a production line with a fully offline open-set vision system running on existing edge hardware, reaching 92% top-1 accuracy within a 240ms cycle time.",
+  "author": { "@type": "Organization", "name": "Hypervelocity", "url": "https://hypervelocity.io/" },
+  "publisher": { "@type": "Organization", "name": "Hypervelocity", "url": "https://hypervelocity.io/" },
+  "about": ["Edge AI", "Computer vision", "Manufacturing", "On-device inference", "Open-set recognition"],
+  "mainEntityOfPage": "https://hypervelocity.io/case-studies/edge-ai"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #16191d;
+    --ink-2: #5d636b;
+    --ink-3: #8a9099;
+    --line: #e4e6ea;
+    --line-2: #eef0f2;
+    --ground: #ffffff;
+    --ground-2: #f7f8f9;
+    --accent: oklch(0.625 0.214 27);
+    --accent-ink: oklch(0.55 0.21 27);
+
+    /* chart tokens — neutral context + the single brand accent for the winning value */
+    --c-weak: #3a4048;   /* weak / unsafe band — deep neutral slate */
+    --c-mid:  #c3c8ce;   /* middle band — light neutral */
+    --c-good: #e5341a;   /* strong / useful band — brand accent */
+
+    --maxw: 1180px;
+    --pad: clamp(20px, 5vw, 64px);
+    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --sans: "Geist", system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
+  body { font-family: var(--sans); color: var(--ink); background: var(--ground); line-height: 1.5; font-size: 17px; }
+  ::selection { background: var(--accent); color: #fff; }
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+
+  /* ---------- Eyebrow ---------- */
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink-3);
+    display: inline-flex; align-items: center; gap: 9px; white-space: nowrap;
+  }
+  .eyebrow .tick { width: 22px; height: 1px; background: var(--accent); display: inline-block; }
+
+  /* ---------- Top bar ---------- */
+  header.bar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.82); backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .wordmark { font-weight: 600; font-size: 18px; letter-spacing: -0.02em; display: inline-flex; align-items: baseline; gap: 0; }
+  .wordmark .hv-dot { color: var(--accent); }
+  .brand-lockup { display: inline-flex; align-items: center; gap: 12px; }
+  .brand-desc {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ink-3); padding-left: 12px; border-left: 1px solid var(--line); white-space: nowrap;
+  }
+  @media (max-width: 560px) {
+    .brand-lockup { gap: 7px; }
+    .brand-desc { font-size: 0; letter-spacing: 0.08em; padding-left: 7px; }
+    .brand-desc::after { content: "AI · AGENTIC"; font-size: 8.5px; }
+  }
+  .bar-right { display: inline-flex; align-items: center; gap: 22px; }
+  .bar-nav { display: inline-flex; gap: 22px; }
+  .bar-nav a {
+    font-family: var(--mono); font-size: 12.5px; font-weight: 500; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--ink-2); transition: color .2s ease;
+  }
+  .bar-nav a:hover { color: var(--accent-ink); }
+  .bar-cta {
+    font-family: var(--mono); font-size: 12.5px; font-weight: 500; letter-spacing: 0.04em;
+    color: var(--ink); border: 1px solid var(--line); padding: 9px 15px; border-radius: 2px;
+    transition: background .25s ease, border-color .25s ease, color .25s ease;
+    display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; background: transparent;
+  }
+  .bar-cta:hover { border-color: var(--accent); color: var(--accent-ink); }
+  .bar-cta .arr { color: var(--accent); }
+
+  /* ---------- Buttons / links ---------- */
+  .btn-primary {
+    background: var(--accent); color: #fff; font-weight: 500; font-size: 15.5px; padding: 13px 22px; border-radius: 2px;
+    display: inline-flex; align-items: center; gap: 10px; transition: background .18s ease;
+  }
+  .btn-primary:hover { background: var(--accent-ink); }
+  .btn-primary .arr { transition: transform .2s ease; }
+  .btn-primary:hover .arr { transform: translateX(3px); }
+  .text-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 13px; font-weight: 500; letter-spacing: 0.03em;
+    color: var(--accent-ink); border-bottom: 1px solid transparent; padding-bottom: 2px; transition: border-color .2s ease;
+  }
+  .text-link:hover { border-color: var(--accent); }
+  .text-link .arr { transition: transform .2s ease; }
+  .text-link:hover .arr { transform: translateX(3px); }
+
+  /* ---------- Section scaffolding ---------- */
+  section { border-bottom: 1px solid var(--line); }
+  .sec-pad { padding-top: clamp(56px, 8vw, 104px); padding-bottom: clamp(56px, 8vw, 104px); }
+  .sec-head { max-width: 760px; }
+  .sec-head h2 {
+    font-size: clamp(28px, 3.8vw, 48px); font-weight: 500; line-height: 1.06; letter-spacing: -0.032em;
+    margin-top: 18px; text-wrap: balance;
+  }
+  .sec-head h2 .em { color: var(--accent); }
+  .sec-head .lead { margin: 20px 0 0; color: var(--ink-2); font-size: 18px; line-height: 1.6; text-wrap: pretty; }
+  .prose { max-width: 720px; color: var(--ink-2); font-size: 17px; line-height: 1.66; text-wrap: pretty; }
+  .prose p + p { margin-top: 18px; }
+  .prose strong { color: var(--ink); font-weight: 500; }
+  .prose.tight { margin-top: clamp(28px, 4vw, 44px); }
+
+  /* ---------- Executive summary ---------- */
+  .summary-grid { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: clamp(36px, 6vw, 88px); align-items: start; }
+  .summary-lead h2 { font-size: clamp(28px, 3.6vw, 46px); font-weight: 500; line-height: 1.08; letter-spacing: -0.032em; margin-top: 18px; text-wrap: balance; }
+  .summary-lead h2 .em { color: var(--accent); }
+  .summary-lead .kicker {
+    margin-top: 22px; font-family: var(--mono); font-size: 13px; line-height: 1.7; letter-spacing: 0.02em; color: var(--ink-3);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .summary-lead .kicker .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex: none; }
+  .summary-points { border-top: 1px solid var(--line); }
+  .sp { display: grid; grid-template-columns: auto 1fr; gap: clamp(16px, 2.4vw, 32px); padding: clamp(22px, 2.6vw, 30px) 0; border-bottom: 1px solid var(--line); }
+  .sp .sp-n { font-family: var(--mono); font-size: 13px; font-weight: 600; letter-spacing: 0.04em; color: var(--accent-ink); padding-top: 3px; }
+  .sp .sp-k { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-3); }
+  .sp .sp-t { font-size: clamp(17px, 1.5vw, 19px); line-height: 1.5; letter-spacing: -0.01em; color: var(--ink); margin-top: 8px; text-wrap: pretty; }
+  .sp .sp-t .em { color: var(--accent-ink); font-weight: 500; }
+  @media (max-width: 820px) {
+    .summary-grid { grid-template-columns: 1fr; gap: clamp(28px, 5vw, 40px); }
+    .summary-points { margin-top: 4px; }
+  }
+  @media (max-width: 460px) {
+    .sp { grid-template-columns: 1fr; gap: 6px; }
+    .sp .sp-n { padding-top: 0; }
+  }
+
+  /* ---------- Hero ---------- */
+  .cs-hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); min-height: calc(100vh - 65px); display: grid; place-items: center; }
+  .cs-hero-field { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; }
+  .cs-hero-scrim {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: radial-gradient(ellipse 70% 60% at 30% 40%, #ffffff 20%, rgba(255,255,255,0.72) 52%, rgba(255,255,255,0.35) 82%);
+  }
+  .cs-hero .wrap { position: relative; z-index: 2; }
+  .cs-hero-grid {
+    width: 100%;
+    display: grid; grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(32px, 6vw, 84px); align-items: start;
+    padding-top: clamp(44px, 6vh, 88px);
+    padding-bottom: clamp(44px, 6vh, 88px);
+  }
+  .cs-hero-copy { max-width: none; }
+  .cs-hero-copy .sub { max-width: 32em; }
+  .cs-hero h1 {
+    font-size: clamp(34px, 5.4vw, 66px); font-weight: 500; line-height: 1.0; letter-spacing: -0.035em;
+    margin-top: 22px; text-wrap: balance;
+  }
+  .cs-hero h1 .em { color: var(--accent); }
+  .cs-hero .sub {
+    margin-top: 24px; font-size: clamp(16px, 1.4vw, 19px); color: var(--ink-2); max-width: 34em; line-height: 1.6; text-wrap: pretty;
+  }
+
+  /* ---------- Metric tiles (hero stack) ---------- */
+  .metrics-stack {
+    border: 1px solid var(--line); border-radius: 5px;
+    background: rgba(255,255,255,0.66); backdrop-filter: saturate(140%) blur(6px);
+  }
+  .metric { display: flex; align-items: center; gap: clamp(16px, 2.2vw, 28px); padding: clamp(20px, 2.6vw, 32px); }
+  .metric + .metric { border-top: 1px solid var(--line); }
+  .metric .mv {
+    font-size: clamp(40px, 4.6vw, 62px); font-weight: 500; letter-spacing: -0.04em; line-height: 0.9; color: var(--ink);
+    flex: none; min-width: 3.1em; display: inline-flex; align-items: baseline;
+  }
+  .metric .mv.accent { color: var(--accent); }
+  .metric .mv .unit { font-size: 0.4em; letter-spacing: -0.01em; color: inherit; margin-left: 0.1em; }
+  .metric .mtext { flex: 1; }
+  .metric .mk { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+  .metric .md { color: var(--ink-2); font-size: 14.5px; line-height: 1.5; margin-top: 7px; }
+  .metric .md code {
+    font-family: var(--mono); font-size: 12.5px; background: var(--ground-2); border: 1px solid var(--line);
+    border-radius: 3px; padding: 1px 5px; color: var(--ink); white-space: nowrap;
+  }
+  @media (max-width: 900px) {
+    .cs-hero { min-height: 0; display: block; }
+    .cs-hero-grid { grid-template-columns: 1fr; gap: clamp(30px, 6vw, 44px); align-items: start; }
+    .cs-hero-copy { max-width: 26em; }
+    .cs-hero-copy .sub { max-width: 34em; }
+  }
+  @media (max-width: 440px) {
+    .metric { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .metric .mv { min-width: 0; }
+    .metric .mk { margin-top: 4px; }
+  }
+
+  /* ---------- Wedge (two extremes) ---------- */
+  .wedge-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    margin-top: clamp(36px, 5vw, 60px); border: 1px solid var(--line); border-radius: 3px; overflow: hidden;
+  }
+  .wedge-cell { padding: clamp(28px, 3vw, 44px); }
+  .wedge-cell + .wedge-cell { border-left: 1px solid var(--line); }
+  .wedge-cell .tag { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  .wedge-cell h3 { font-size: 23px; font-weight: 500; letter-spacing: -0.02em; margin-top: 14px; }
+  .wedge-cell p { margin-top: 14px; color: var(--ink-2); font-size: 16px; line-height: 1.6; text-wrap: pretty; }
+  .wedge-cell ul { margin-top: 16px; list-style: none; }
+  .wedge-cell li { position: relative; padding-left: 20px; color: var(--ink-2); font-size: 14.5px; line-height: 1.45; margin-top: 8px; }
+  .wedge-cell li::before { content: "•"; position: absolute; left: 0; color: var(--ink-3); }
+  .wedge-resolve {
+    margin: clamp(30px, 4vw, 44px) auto 0; text-align: center;
+    font-size: clamp(20px, 2.2vw, 28px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.28; max-width: 26em; text-wrap: balance;
+  }
+  .wedge-resolve .em { color: var(--accent); }
+
+  /* ---------- Constraint (two big numbers) ---------- */
+  .constraint { background: var(--ground-2); }
+  .constraint-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: clamp(36px, 5vw, 56px); border: 1px solid var(--line); border-radius: 3px; background: var(--ground); overflow: hidden; }
+  .con-cell { padding: clamp(30px, 4vw, 52px); }
+  .con-cell + .con-cell { border-left: 1px solid var(--line); }
+  .con-cell .kv { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  .con-cell .bignum { font-size: clamp(52px, 9vw, 116px); font-weight: 500; letter-spacing: -0.045em; line-height: 0.92; margin-top: 16px; color: var(--ink); display: inline-flex; align-items: baseline; }
+  .con-cell .bignum .unit { font-size: 0.34em; letter-spacing: -0.01em; color: var(--ink-3); margin-left: 0.14em; }
+  .con-cell .bignum .lt { color: var(--accent); }
+  .con-cell p { margin-top: 18px; color: var(--ink-2); font-size: 16px; line-height: 1.58; max-width: 26em; }
+  @media (max-width: 680px) {
+    .constraint-grid { grid-template-columns: 1fr; }
+    .con-cell + .con-cell { border-left: none; border-top: 1px solid var(--line); }
+  }
+
+  /* ---------- Pipeline spine ---------- */
+  .spine { margin-top: clamp(44px, 6vw, 72px); position: relative; }
+  .spine-track { position: relative; height: 2px; background: var(--line); margin: 0 6px; }
+  .spine-fill { position: absolute; left: 0; top: 0; height: 100%; width: 100%; background: var(--accent); transform-origin: left center; transform: scaleX(0); }
+  .spine-fill.go { transform: scaleX(1); transition: transform 2.4s cubic-bezier(.4,.5,.2,1) .2s; }
+  .spine-head { position: absolute; right: -1px; top: 50%; width: 0; height: 0; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-left: 11px solid var(--accent); transform: translateY(-50%) scale(0); transform-origin: center; }
+  .spine-head.go { transform: translateY(-50%) scale(1); transition: transform .35s ease 2.5s; }
+  .phases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .phase { padding: 28px 26px 0 0; position: relative; }
+  .phase + .phase { padding-left: 26px; }
+  .phase .node { position: absolute; top: -33px; left: 0; width: 11px; height: 11px; border-radius: 50%; background: var(--ground-2); border: 2px solid var(--accent); }
+  .phase:first-child .node { background: var(--accent); }
+  .phase .step { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--ink-3); }
+  .phase h3 { font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-top: 10px; }
+  .phase p { margin-top: 11px; color: var(--ink-2); font-size: 15px; line-height: 1.58; text-wrap: pretty; }
+  .phase .pill { display: inline-block; margin-top: 14px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent-ink); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; }
+
+  /* ---------- Results / charts ---------- */
+  .results { background: var(--ground-2); }
+  .result-meta { display: flex; flex-wrap: wrap; gap: 0; margin-top: clamp(32px, 4vw, 48px); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .rm { padding: 22px 34px 22px 0; }
+  .rm + .rm { padding-left: 34px; border-left: 1px solid var(--line); }
+  .rm .v { font-size: 30px; font-weight: 500; letter-spacing: -0.02em; }
+  .rm .k { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-3); margin-top: 6px; }
+  @media (max-width: 560px) { .rm { padding: 18px 0; } .rm + .rm { padding-left: 0; border-left: none; border-top: 1px solid var(--line); } }
+
+  .chartcard { background: var(--ground); border: 1px solid var(--line); border-radius: 4px; padding: clamp(24px, 3vw, 38px); margin-top: clamp(28px, 3.4vw, 40px); }
+  .chartcard .ct-eyebrow { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  .chartcard h3 { font-size: clamp(20px, 2.3vw, 27px); font-weight: 500; letter-spacing: -0.02em; margin-top: 10px; max-width: 22em; }
+  .chartcard .ct-note { margin-top: 12px; color: var(--ink-2); font-size: 15px; line-height: 1.55; max-width: 40em; }
+
+  /* delta badge */
+  .delta { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 13px; font-weight: 600; letter-spacing: 0.02em; color: #fff; background: var(--accent); border-radius: 999px; padding: 4px 11px; vertical-align: middle; }
+  .delta.up::before { content: "▲"; font-size: 9px; }
+
+  /* horizontal bar chart (correctness) */
+  .barchart { margin-top: clamp(24px, 3vw, 34px); }
+  .barrow { display: grid; grid-template-columns: 118px 1fr; align-items: center; gap: 18px; }
+  .barrow + .barrow { margin-top: 20px; }
+  .barrow .blabel { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink-2); text-align: right; }
+  .bartrack { position: relative; height: 40px; background: var(--ground-2); border: 1px solid var(--line-2); border-radius: 3px; display: flex; align-items: center; }
+  .barfill { height: 100%; width: 0; border-radius: 3px; transition: width 1.35s cubic-bezier(.35,.7,.2,1); flex: none; }
+  .barfill.before { background: var(--ink-2); }
+  .barfill.after { background: var(--accent); }
+  .bval { font-family: var(--mono); font-size: 15px; font-weight: 600; color: var(--ink); padding-left: 12px; opacity: 0; transition: opacity .4s ease .9s; white-space: nowrap; flex: none; }
+  .baraxis { display: grid; grid-template-columns: 118px 1fr; gap: 18px; margin-top: 14px; }
+  .baraxis .axis-line { position: relative; height: 16px; border-top: 1px solid var(--line); }
+  .baraxis .tick { position: absolute; top: 0; transform: translateX(-50%); font-family: var(--mono); font-size: 11px; color: var(--ink-3); padding-top: 5px; }
+  .baraxis .tick::before { content: ""; position: absolute; top: 0; left: 50%; width: 1px; height: 4px; background: var(--line); }
+  .axis-cap { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.04em; text-align: right; padding-top: 5px; }
+
+  /* stacked distribution (operating profile) */
+  .stackchart { margin-top: clamp(24px, 3vw, 34px); }
+  .stackrow { display: grid; grid-template-columns: 70px 1fr; align-items: center; gap: 18px; }
+  .stackrow + .stackrow { margin-top: 16px; }
+  .stackrow .slabel { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink-2); text-align: right; }
+  .stacktrack { display: flex; height: 52px; width: 100%; gap: 2px; }
+  .seg { height: 100%; width: 0; transition: width 1.2s cubic-bezier(.35,.7,.2,1); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+  .seg:first-child { border-radius: 3px 0 0 3px; }
+  .seg:last-child { border-radius: 0 3px 3px 0; }
+  .seg.weak { background: var(--c-weak); }
+  .seg.mid  { background: var(--c-mid); }
+  .seg.good { background: var(--c-good); }
+  .seg .segval { font-family: var(--mono); font-size: 13px; font-weight: 600; opacity: 0; transition: opacity .4s ease .8s; white-space: nowrap; }
+  .seg.weak .segval, .seg.good .segval { color: #fff; }
+  .seg.mid .segval { color: var(--ink); }
+  .stack-legend { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 22px; }
+  .lg { display: inline-flex; align-items: center; gap: 9px; font-size: 13.5px; color: var(--ink-2); }
+  .lg .sw { width: 13px; height: 13px; border-radius: 3px; flex: none; }
+  .lg .sw.weak { background: var(--c-weak); } .lg .sw.mid { background: var(--c-mid); } .lg .sw.good { background: var(--c-good); }
+  .lg .arrow { font-family: var(--mono); font-size: 12px; color: var(--ink-3); }
+  .lg .arrow.gooddir { color: var(--accent-ink); }
+
+  /* qualitative gains chips */
+  .gains { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .gains span { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.02em; color: var(--ink-2); border: 1px solid var(--line); border-radius: 2px; padding: 6px 11px; background: var(--ground); }
+  .gains span b { color: var(--accent-ink); font-weight: 600; }
+  .caveat { margin-top: clamp(28px, 3.4vw, 40px); border-left: 2px solid var(--accent); padding: 4px 0 4px 20px; color: var(--ink-2); font-size: 15.5px; line-height: 1.6; max-width: 44em; }
+  .caveat strong { color: var(--ink); font-weight: 500; }
+
+  /* ---------- Routing diagram ---------- */
+  .routing { margin-top: clamp(40px, 5vw, 60px); }
+  .route { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: clamp(18px, 3vw, 40px); }
+  .route-node { border: 1px solid var(--line); border-radius: 4px; padding: 24px; background: var(--ground); }
+  .route-node.frontier { border-color: var(--ink); }
+  .route-node .rn-tag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  .route-node h4 { font-size: 18px; font-weight: 500; letter-spacing: -0.01em; margin-top: 10px; }
+  .route-node ul { list-style: none; margin-top: 12px; }
+  .route-node li { position: relative; padding-left: 18px; font-size: 14px; color: var(--ink-2); line-height: 1.45; margin-top: 7px; }
+  .route-node li::before { content: "→"; position: absolute; left: 0; color: var(--accent); }
+  .route-stack { display: flex; flex-direction: column; gap: 12px; }
+  .route-mini { border: 1px solid var(--line); border-left: 2px solid var(--accent); border-radius: 3px; padding: 12px 14px; background: var(--ground); }
+  .route-mini .rm-t { font-size: 14.5px; font-weight: 500; }
+  .route-mini .rm-d { font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-3); margin-top: 4px; }
+  .route-arrow { display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--ink-3); }
+  .route-arrow .ra-line { width: clamp(20px, 4vw, 60px); height: 1px; background: var(--line); position: relative; }
+  .route-arrow .ra-line::after { content: "▶"; position: absolute; right: -2px; top: 50%; transform: translateY(-50%); font-size: 9px; color: var(--accent); }
+  .route-arrow .ra-cap { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+  @media (max-width: 760px) {
+    .route { grid-template-columns: 1fr; }
+    .route-arrow { flex-direction: row; }
+    .route-arrow .ra-line { width: 1px; height: 26px; }
+    .route-arrow .ra-line::after { right: 50%; top: auto; bottom: -2px; transform: translateX(50%) rotate(90deg); }
+  }
+
+  /* ---------- Close ---------- */
+  .close-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(36px,6vw,80px); align-items: end; }
+  .close h2 { font-size: clamp(30px, 4.2vw, 56px); font-weight: 500; line-height: 1.0; letter-spacing: -0.035em; text-wrap: balance; }
+  .close h2 .em { color: var(--accent); }
+  .close .body { color: var(--ink-2); font-size: 17px; line-height: 1.6; text-wrap: pretty; }
+  .close-actions { margin-top: 30px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  @media (max-width: 760px) { .close-grid { grid-template-columns: 1fr; gap: 28px; } }
+
+  /* ---------- Footer ---------- */
+  footer { padding: 30px 0; }
+  .foot-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: var(--ink-3); flex-wrap: wrap; gap: 12px;
+  }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .foot-inner a:hover { color: var(--accent-ink); }
+
+  /* ---------- Reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 880px) {
+    .cs-hero-field { opacity: 0.5; }
+    .wedge-grid { grid-template-columns: 1fr; }
+    .wedge-cell + .wedge-cell { border-left: none; border-top: 1px solid var(--line); }
+    .phases { grid-template-columns: 1fr 1fr; gap: 20px 0; }
+    .spine-track { display: none; }
+    .spine { margin-top: clamp(24px, 6vw, 36px); }
+    .phase { padding-left: 0 !important; }
+    .phase + .phase { border-top: 1px solid var(--line); padding-top: 22px; }
+    .phase .node { display: none; }
+  }
+  @media (max-width: 560px) {
+    .phases { grid-template-columns: 1fr; }
+    .barrow { grid-template-columns: 84px 1fr; gap: 12px; }
+    .baraxis { grid-template-columns: 84px 1fr; gap: 12px; }
+    .stackrow { grid-template-columns: 54px 1fr; gap: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .barfill, .seg, .spine-fill, .spine-head { transition: none !important; }
+    .barfill .bval, .seg .segval { transition: none !important; opacity: 1 !important; }
+  }
+  /* ---------- Problem → answer pairs ---------- */
+  .wedge-cell .answer { margin-top: 20px; border-left: 2px solid var(--accent); padding: 2px 0 2px 16px; }
+  .wedge-cell .answer .at { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink); }
+  .wedge-cell .answer p { margin-top: 8px; color: var(--ink); font-size: 15.5px; }
+
+  /* ---------- Latency budget bar ---------- */
+  .budget { margin-top: clamp(24px, 3vw, 34px); }
+  .budgetrow { display: grid; grid-template-columns: 118px 1fr; align-items: center; gap: 18px; }
+  .budgetrow + .budgetrow { margin-top: 20px; }
+  .budgetrow .blabel { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink-2); text-align: right; }
+  .budgettrack { position: relative; height: 40px; background: var(--ground-2); border: 1px solid var(--line-2); border-radius: 3px; display: flex; align-items: center; }
+  .budgetline { position: absolute; top: -12px; bottom: -12px; width: 1px; background: var(--ink); z-index: 2; }
+  .budgetline::after {
+    content: attr(data-label); position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); white-space: nowrap;
+  }
+  .budgetcap { margin-top: 34px; }
+  @media (max-width: 560px) { .budgetrow { grid-template-columns: 84px 1fr; gap: 12px; } }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap bar-inner">
+    <div class="brand-lockup">
+      <a class="wordmark" href="../index.html">Hypervelocity<span class="hv-dot">.</span></a>
+      <span class="brand-desc">Production AI · Agentic Systems</span>
+    </div>
+    <div class="bar-right">
+      <nav class="bar-nav" aria-label="Primary"><a href="../about.html">About</a></nav>
+      <a class="bar-cta" href="mailto:contact@hypervelocity.io">Talk to us <span class="arr">→</span></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO + METRIC TILES -->
+  <section class="cs-hero">
+    <canvas id="vectorCanvas" class="cs-hero-field" aria-hidden="true" role="presentation"></canvas>
+    <div class="cs-hero-scrim"></div>
+    <div class="wrap cs-hero-grid">
+      <div class="cs-hero-copy">
+        <span class="eyebrow"><span class="tick"></span>CASE STUDY · EDGE AI FOR MANUFACTURING</span>
+        <h1>A vision system on the production line, with <span class="em">no cloud</span> behind it.</h1>
+        <p class="sub">We automated a manual visual validation step for a leading Indian manufacturer. It runs fully offline, on the edge hardware the plant already had, inside the line's cycle time.</p>
+      </div>
+      <div class="metrics-stack">
+        <div class="metric">
+          <div class="mv">92<span class="unit">%</span></div>
+          <div class="mtext">
+            <div class="mk">Top-1 accuracy</div>
+            <div class="md">On a held-out set covering known SKUs and non-SKU inputs. 96% top-3.</div>
+          </div>
+        </div>
+        <div class="metric">
+          <div class="mv">100<span class="unit">ms</span></div>
+          <div class="mtext">
+            <div class="mk">Inference latency</div>
+            <div class="md"><code>400ms → 100ms</code>, inside a 240ms cycle time.</div>
+          </div>
+        </div>
+        <div class="metric">
+          <div class="mv accent">70<span class="unit">%</span></div>
+          <div class="mtext">
+            <div class="mk">Manual entries removed</div>
+            <div class="md">An estimated 127 minutes saved per operator each day.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section class="summary">
+    <div class="wrap sec-pad">
+      <div class="summary-grid">
+        <div class="summary-lead reveal">
+          <span class="eyebrow"><span class="tick"></span>EXECUTIVE SUMMARY</span>
+          <h2>Automating visual operations within the <span class="em">constraints</span> of the production line.</h2>
+          <span class="kicker"><span class="dot"></span>What we built and what changed.</span>
+        </div>
+        <div class="summary-points reveal">
+          <div class="sp">
+            <span class="sp-n">01</span>
+            <div>
+              <div class="sp-k">The objective</div>
+              <p class="sp-t">Replace a manual visual check on the production line with a system that runs on existing edge hardware, offline, within the line's cycle time.</p>
+            </div>
+          </div>
+          <div class="sp">
+            <span class="sp-n">02</span>
+            <div>
+              <div class="sp-k">The method</div>
+              <p class="sp-t">An open-set system instead of a fixed-label classifier, so the SKU catalog can change without retraining and the system can answer <span class="em">&ldquo;I don&rsquo;t know&rdquo;</span> when nothing in the frame matches.</p>
+            </div>
+          </div>
+          <div class="sp">
+            <span class="sp-n">03</span>
+            <div>
+              <div class="sp-k">The result</div>
+              <p class="sp-t">92% top-1 accuracy at 100ms inference, <span class="em">70% of manual data-entry events eliminated</span>, and every frame of production data kept on the device.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE BUSINESS PROBLEM -->
+  <section class="problem">
+    <div class="wrap sec-pad">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="tick"></span>THE BUSINESS PROBLEM</span>
+        <h2>Throughput bounded by human attention.</h2>
+        <p class="lead">Manufacturing throughput often depends on manual visual checks. Operators must recognize parts and record or act on what they see using process-specific knowledge. The task varies by operation, but the constraint remains the same: accuracy depends on human attention and experience.</p>
+      </div>
+      <div class="prose tight reveal">
+        <p>This expertise often sits with a small group of senior operators and takes months, if not years, to build. Manual checks limit throughput, fatigue increases errors, and staff turnover removes hard-won operational knowledge. A process bounded by human recall and sustained attention is difficult to scale.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE CONSTRAINT -->
+  <section class="constraint">
+    <div class="wrap sec-pad">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="tick"></span>THE CONSTRAINT</span>
+        <h2>The plant set the envelope.</h2>
+        <p class="lead">The manufacturer added a camera module to its existing edge hardware on the line. We built the vision system to run inside that setup — not around it.</p>
+      </div>
+      <div class="constraint-grid reveal">
+        <div class="con-cell">
+          <span class="kv">Time per result</span>
+          <div class="bignum">240<span class="unit">ms</span></div>
+          <p>From camera capture to result, on limited on-device compute. Anything slower stalls the line.</p>
+        </div>
+        <div class="con-cell">
+          <span class="kv">Cloud calls allowed</span>
+          <div class="bignum"><span class="lt">0</span></div>
+          <p>Fully offline operation. Production data never leaves the device, and no inference depends on a network.</p>
+        </div>
+      </div>
+      <p class="prose tight reveal" style="text-align:center;margin-left:auto;margin-right:auto;">The SKU catalog also had to absorb frequent additions and removals — without a retraining cycle standing in the way.</p>
+    </div>
+  </section>
+
+  <!-- WHY NOT A CLASSIFIER -->
+  <section class="wedge-sec">
+    <div class="wrap sec-pad">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="tick"></span>THE ARCHITECTURE DECISION</span>
+        <h2>Why a conventional classifier was ruled out.</h2>
+        <p class="lead">A closed-set image classifier is the obvious choice here. It brings two structural problems that a production line exposes immediately.</p>
+      </div>
+      <div class="wedge-grid reveal">
+        <div class="wedge-cell">
+          <span class="tag">Problem 01</span>
+          <h3>The catalog problem</h3>
+          <p>A closed-set classifier couples its supported SKUs to the model's training cycle. Every catalog change can require new labeled data and another model release — making model maintenance an operational bottleneck for a manufacturer that regularly adds and retires SKUs.</p>
+          <div class="answer">
+            <span class="at">What we did</span>
+            <p>Open-set recognition instead of fixed labels. A small local reference set represents each SKU, bringing enrollment under five minutes without retraining.</p>
+          </div>
+        </div>
+        <div class="wedge-cell">
+          <span class="tag">Problem 02</span>
+          <h3>The open-set problem</h3>
+          <p>A production camera does not see only cataloged SKUs. Operators&rsquo; hands and tools routinely enter the frame. A closed-set classifier assigns those out-of-catalog inputs to a known class anyway, often with unwarranted confidence.</p>
+          <div class="answer">
+            <span class="at">What we did</span>
+            <p>An explicit &ldquo;I don&rsquo;t know&rdquo; path. The system geometrically rejects irrelevant objects, and when the visual evidence does not support a reliable match it abstains rather than returning a confident error.</p>
+          </div>
+        </div>
+      </div>
+      <p class="wedge-resolve reveal">The system had to support catalog changes without retraining and reject inputs that were not known SKUs.</p>
+    </div>
+  </section>
+
+  <!-- THE DATA -->
+  <section class="data">
+    <div class="wrap sec-pad">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="tick"></span>THE DATA LOOP</span>
+        <h2>The camera feed decides what the training set must contain.</h2>
+        <p class="lead">Model choice matters to an extent. But the deployment performance depended more on matching the training distribution to the actual feed.</p>
+      </div>
+      <div class="prose tight reveal">
+        <p>Lighting varied by site. Reflective parts introduced glare and hard shadows. Once a model met the edge compute budget, <strong>these input shifts mattered more than marginal differences between modern vision backbones.</strong></p>
+        <p>We combined broad open-source pretraining data with site-specific SKU captures taken on the production cameras under operating conditions. The open-source corpus also exposed the model to background and non-SKU inputs. Augmentation reproduced low-light sensor behavior and motion blur — but the proportion of synthetic data had to be controlled: too much and the model fits augmentation artifacts, too little and the deployment distribution has gaps.</p>
+      </div>
+      <div class="gains reveal">
+        <span>Open-source pretraining corpus <b>· background + non-SKU coverage</b></span>
+        <span>Site captures <b>· production cameras, operating conditions</b></span>
+        <span>Augmentation <b>· low-light sensor behavior, motion blur</b></span>
+        <span>Validation set <b>· 100% real production-camera images</b></span>
+      </div>
+      <p class="wedge-resolve reveal">Own the data loop. That is how model performance <span class="em">compounds</span>.</p>
+    </div>
+  </section>
+
+  <!-- ON THE DEVICE -->
+  <section class="built">
+    <div class="wrap sec-pad">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="tick"></span>ON THE DEVICE</span>
+        <h2>How it earns its place in the cycle time.</h2>
+        <p class="lead">Initial inference alone took about 400ms against a 240ms budget. Profiling closed the gap, not switching to a smaller model backbone.</p>
+      </div>
+
+      <div class="spine reveal">
+        <div class="spine-track">
+          <div class="spine-fill" id="spineFill"></div>
+          <div class="spine-head" id="spineHead"></div>
+        </div>
+        <div class="phases">
+          <div class="phase">
+            <span class="node"></span>
+            <span class="step">STEP 01</span>
+            <h3>Enroll</h3>
+            <p>A few reference images per SKU are added to the local catalog. No labeled dataset, no model release.</p>
+            <span class="pill">Under 5 minutes</span>
+          </div>
+          <div class="phase">
+            <span class="node"></span>
+            <span class="step">STEP 02</span>
+            <h3>Profile and shrink</h3>
+            <p>Profiling pointed at input resolution. Reducing it took inference from ~400ms to ~100ms with no measurable accuracy loss, leaving headroom for the rest of the pipeline.</p>
+            <span class="pill">400ms → 100ms</span>
+          </div>
+          <div class="phase">
+            <span class="node"></span>
+            <span class="step">STEP 03</span>
+            <h3>Adapt to the site</h3>
+            <p>A per-SKU observation count acts as a prior for later inference, so the system reflects local SKU frequency — with no weight updates and no cloud sync.</p>
+            <span class="pill">No retraining</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose tight reveal" style="margin-top:clamp(40px,5vw,64px);">
+        <p>A new deployment starts with a sparse reference database. The device adapts to the conditions of the site it is actually standing in, rather than waiting for a central team to notice.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="results" id="results">
+    <div class="wrap sec-pad">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="tick"></span>THE RESULT</span>
+        <h2>Measured on held-out production inputs.</h2>
+        <p class="lead">The evaluation set covered both known SKUs and non-SKU inputs. Correct abstentions counted toward the score — recognizing an operator's hand as "not a SKU" is a right answer, not an evasion.</p>
+      </div>
+
+      <div class="result-meta reveal">
+        <div class="rm"><div class="v">92%</div><div class="k">Top-1 accuracy</div></div>
+        <div class="rm"><div class="v">96%</div><div class="k">Top-3 accuracy</div></div>
+        <div class="rm"><div class="v">&lt;5 min</div><div class="k">To enroll a new SKU</div></div>
+        <div class="rm"><div class="v">127 min</div><div class="k">Saved per operator, per day</div></div>
+      </div>
+
+      <!-- CHART 1: accuracy -->
+      <div class="chartcard reveal">
+        <span class="ct-eyebrow">Chart 01 · Core metric</span>
+        <h3>Recognition accuracy, known SKUs and non-SKU inputs</h3>
+        <p class="ct-note">Held-out evaluation, including correct abstentions on out-of-catalog inputs. Bars are drawn to a true 0&ndash;100% scale.</p>
+        <div class="barchart" id="chart-accuracy">
+          <div class="barrow">
+            <span class="blabel">Top-1</span>
+            <div class="bartrack"><div class="barfill after" data-target="92"></div><span class="bval">92%</span></div>
+          </div>
+          <div class="barrow">
+            <span class="blabel">Top-3</span>
+            <div class="bartrack"><div class="barfill after" data-target="96"></div><span class="bval">96%</span></div>
+          </div>
+          <div class="baraxis" aria-hidden="true">
+            <span class="axis-cap">accuracy →</span>
+            <div class="axis-line">
+              <span class="tick" style="left:0%;">0</span>
+              <span class="tick" style="left:50%;">50%</span>
+              <span class="tick" style="left:100%;">100%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHART 2: latency -->
+      <div class="chartcard reveal">
+        <span class="ct-eyebrow">Chart 02 · Latency</span>
+        <h3>Inference against the line's cycle time &nbsp;<span class="delta up">4&times; faster</span></h3>
+        <p class="ct-note">The line allows roughly 240ms from capture to result. Initial inference alone overran it. Reducing input resolution brought it to about 100ms with no measurable accuracy loss.</p>
+        <div class="budget" id="chart-latency">
+          <div class="budgetrow">
+            <span class="blabel">Initial</span>
+            <div class="budgettrack">
+              <div class="barfill before" data-target="80"></div><span class="bval">~400ms</span>
+              <span class="budgetline" style="left:48%;" data-label="240ms budget"></span>
+            </div>
+          </div>
+          <div class="budgetrow">
+            <span class="blabel">Optimized</span>
+            <div class="budgettrack">
+              <div class="barfill after" data-target="20"></div><span class="bval">~100ms</span>
+              <span class="budgetline" style="left:48%;"></span>
+            </div>
+          </div>
+          <div class="baraxis budgetcap" aria-hidden="true">
+            <span class="axis-cap">latency →</span>
+            <div class="axis-line">
+              <span class="tick" style="left:0%;">0</span>
+              <span class="tick" style="left:50%;">250ms</span>
+              <span class="tick" style="left:100%;">500ms</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHART 3: manual data entry -->
+      <div class="chartcard reveal">
+        <span class="ct-eyebrow">Chart 03 · Operating profile</span>
+        <h3>Where the operator's day went.</h3>
+        <p class="ct-note">The system eliminated 70% of manual data-entry events. At observed volume, and two to three seconds removed per event, that is an estimated 127 minutes back per operator each day.</p>
+        <div class="stackchart" id="chart-entry">
+          <div class="stackrow">
+            <span class="slabel">Before</span>
+            <div class="stacktrack">
+              <div class="seg weak" data-target="100"><span class="segval">100% entered by hand</span></div>
+            </div>
+          </div>
+          <div class="stackrow">
+            <span class="slabel">After</span>
+            <div class="stacktrack">
+              <div class="seg weak" data-target="30"><span class="segval">30%</span></div>
+              <div class="seg good" data-target="70"><span class="segval">70% handled on-device</span></div>
+            </div>
+          </div>
+          <div class="stack-legend">
+            <span class="lg"><span class="sw weak"></span>Manual data entry <span class="arrow gooddir">100% → 30% ▼</span></span>
+            <span class="lg"><span class="sw good"></span>Automated <span class="arrow gooddir">0 → 70% ▲</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose tight reveal">
+        <p>The manufacturer increased throughput without adding headcount. Removing repetitive data entry also reduced the opportunity for input errors and operator fatigue.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BUSINESS IMPACT -->
+  <section class="impact">
+    <div class="wrap sec-pad">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="tick"></span>BUSINESS IMPACT</span>
+        <h2>The operator stays; the repetition goes.</h2>
+        <p class="lead">The system is not there to replace judgement. It takes the recognition and recording that consumed the day, and hands back everything it cannot stand behind.</p>
+      </div>
+
+      <div class="routing reveal">
+        <div class="route">
+          <div class="route-node frontier">
+            <span class="rn-tag">Stays with the operator</span>
+            <h4>Human judgement</h4>
+            <ul>
+              <li>Frames the system abstains on</li>
+              <li>Process exceptions and calls that need context</li>
+            </ul>
+          </div>
+          <div class="route-arrow">
+            <span class="ra-cap">delegates</span>
+            <span class="ra-line"></span>
+            <span class="ra-cap">bounded, repeated work</span>
+          </div>
+          <div class="route-stack">
+            <div class="route-mini"><div class="rm-t">SKU recognition &amp; data entry</div><div class="rm-d">70% of events</div></div>
+            <div class="route-mini"><div class="rm-t">New SKU enrollment</div><div class="rm-d">Under 5 minutes · no retraining</div></div>
+            <div class="route-mini"><div class="rm-t">Site adaptation</div><div class="rm-d">Daily · on-device · no cloud sync</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose tight reveal">
+        <p>All production data remained on-device. The deployment reused the manufacturer's existing edge compute and required only a camera module — preserving data locality without adding cloud infrastructure or a recurring inference bill.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSE / CTA -->
+  <section class="close" id="contact">
+    <div class="wrap sec-pad">
+      <div class="close-grid">
+        <div class="reveal">
+          <span class="eyebrow"><span class="tick"></span>CALL TO ACTION</span>
+          <h2 style="margin-top:18px;">Which part of your line is bounded by <span class="em">human attention?</span></h2>
+        </div>
+        <div class="reveal">
+          <p class="body">Talk to us about the steps in your process where recognition and recording set the pace — and what it would take to run them on the hardware you already have.</p>
+          <div class="close-actions">
+            <a class="btn-primary" href="mailto:contact@hypervelocity.io">Talk to us <span class="arr">→</span></a>
+            <a class="text-link" href="../index.html">Back to home <span class="arr">→</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <span>HYPERVELOCITY © 2026</span>
+    <span class="foot-desc">PRODUCTION AI · AI AGENTS · AGENTIC SYSTEMS · APPLIED AI</span>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="../index.html">HOME</a>
+      <a href="../about.html">ABOUT</a>
+      <a href="mailto:contact@hypervelocity.io">CONTACT</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Hero: static bed of grey arrows, SW → NE ---------- */
+  var canvas = document.getElementById('vectorCanvas');
+  if (canvas) {
+    var ctx = canvas.getContext('2d');
+    var dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    var GREY = '#b4bac1';
+    var ANG = -Math.PI / 4;
+
+    function arrow(x, y, ang, len, color, alpha, w, head) {
+      var ex = x + Math.cos(ang) * len, ey = y + Math.sin(ang) * len;
+      ctx.globalAlpha = alpha; ctx.strokeStyle = color; ctx.fillStyle = color;
+      ctx.lineWidth = w; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(ex, ey); ctx.stroke();
+      if (head) {
+        var a1 = ang + Math.PI * 0.82, a2 = ang - Math.PI * 0.82;
+        ctx.beginPath(); ctx.moveTo(ex, ey);
+        ctx.lineTo(ex + Math.cos(a1) * head, ey + Math.sin(a1) * head);
+        ctx.lineTo(ex + Math.cos(a2) * head, ey + Math.sin(a2) * head);
+        ctx.closePath(); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    function draw() {
+      var r = canvas.getBoundingClientRect();
+      var W = r.width, H = r.height;
+      canvas.width = Math.round(W * dpr);
+      canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      var gap = Math.max(72, Math.min(W, H) * 0.1);
+      var len = gap * 0.5;
+      var head = Math.max(4, len * 0.26);
+      var cols = Math.ceil(W / gap) + 2, rows = Math.ceil(H / gap) + 2;
+      var offx = (W - (cols - 1) * gap) / 2;
+      var offy = (H - (rows - 1) * gap) / 2;
+      var hx = Math.cos(ANG) * len / 2, hy = Math.sin(ANG) * len / 2;
+      for (var iy = 0; iy < rows; iy++) {
+        for (var ix = 0; ix < cols; ix++) {
+          var cx = offx + ix * gap, cy = offy + iy * gap;
+          arrow(cx - hx, cy - hy, ANG, len, GREY, 0.5, 1.3, head);
+        }
+      }
+    }
+    draw();
+    var rt;
+    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(draw, 120); });
+  }
+
+  /* ---------- Scroll reveal ---------- */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+  /* ---------- Spine fill on view ---------- */
+  var spine = document.querySelector('.spine');
+  var fill = document.getElementById('spineFill');
+  var shead = document.getElementById('spineHead');
+  if (spine && fill && !reduce) {
+    var sio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { fill.classList.add('go'); shead.classList.add('go'); sio.unobserve(en.target); }
+      });
+    }, { threshold: 0.55 });
+    sio.observe(spine);
+  } else if (fill) { fill.classList.add('go'); if (shead) shead.classList.add('go'); }
+
+  /* ---------- Animated bars: fill to data-target (% width) once in view ---------- */
+  function animateFills(root) {
+    root.querySelectorAll('[data-target]').forEach(function (el) {
+      var pct = parseFloat(el.getAttribute('data-target')) || 0;
+      el.style.width = pct + '%';
+    });
+    root.querySelectorAll('.bval, .segval').forEach(function (v) { v.style.opacity = '1'; });
+  }
+  var cio = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { animateFills(en.target); cio.unobserve(en.target); }
+    });
+  }, { threshold: 0.4 });
+  ['chart-accuracy', 'chart-latency', 'chart-entry'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) { reduce ? animateFills(el) : cio.observe(el); }
+  });
+
+  /* ---------- Bar CTA fills after hero scrolls past ---------- */
+  var barCta = document.querySelector('.bar-cta');
+  var heroEl = document.querySelector('.cs-hero');
+  if (barCta && heroEl) {
+    var hio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        barCta.style.background = en.isIntersecting ? 'transparent' : 'var(--accent)';
+        barCta.style.borderColor = en.isIntersecting ? 'var(--line)' : 'var(--accent)';
+        barCta.style.color = en.isIntersecting ? 'var(--ink)' : '#fff';
+        var arr = barCta.querySelector('.arr'); if (arr) arr.style.color = en.isIntersecting ? 'var(--accent)' : '#fff';
+      });
+    }, { threshold: 0, rootMargin: '-64px 0px 0px 0px' });
+    hio.observe(heroEl);
+  }
+})();
+</script>
+
+</body>
+</html>

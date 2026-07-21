@@ -172,18 +172,6 @@
     border-left: 1px solid var(--line);
     white-space: nowrap;
   }
-  @media (max-width: 560px) {
-    .brand-lockup { gap: 7px; }
-    .brand-desc {
-      font-size: 0;
-      letter-spacing: 0.08em;
-      padding-left: 7px;
-    }
-    .brand-desc::after {
-      content: "AI · AGENTIC";
-      font-size: 8.5px;
-    }
-  }
   .bar-cta {
     font-family: var(--mono);
     font-size: 12.5px;
@@ -207,6 +195,16 @@
     text-transform: uppercase; color: var(--ink-2); transition: color .2s ease;
   }
   .bar-nav a:hover { color: var(--accent-ink); }
+  @media (max-width: 560px) {
+    .brand-desc { display: none; }
+    .bar-right { gap: 12px; }
+    .bar-cta { padding: 8px 12px; }
+  }
+  @media (max-width: 360px) {
+    .wordmark { font-size: 16px; }
+    .bar-nav { gap: 14px; }
+    .bar-cta { font-size: 11.5px; padding: 7px 10px; gap: 5px; }
+  }
   .bar-cta:hover { border-color: var(--accent); color: var(--accent-ink); }
   .bar-cta .arr { color: var(--accent); transition: color .25s ease; }
   /* After the hero scrolls past, the bar CTA fills with the accent for contrast */

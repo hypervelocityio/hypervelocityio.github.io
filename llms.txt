@@ -1,0 +1,21 @@
+# Hypervelocity
+
+> Hypervelocity is an AI engineering firm that designs, builds, deploys, and operates production AI agents, agentic workflows, and custom AI systems.
+
+Hypervelocity works with companies where AI reliability and business outcomes matter. Its services include AI agents and agentic systems, custom AI applications, and the infrastructure and operations required to run production AI—including evaluations, observability, security, guardrails, model routing, latency optimization, and cost control.
+
+Hypervelocity works in four phases: Discover; Prototype & Evaluate; Harden; and Deploy & Operate. A production-ready AI agent is integrated into business workflows, operates with explicit permissions and human oversight where required, handles uncertain cases safely, and is continuously evaluated for accuracy, safety, reliability, and cost.
+
+## Company
+
+- [Hypervelocity homepage](https://hypervelocity.io/): Company overview, production AI capabilities, operating method, case-study highlights, and contact information.
+- [About Hypervelocity](https://hypervelocity.io/about.html): Background on co-founders Raghotham S and Shrayas R and advisors Nischal HP and Bargava Subramanian.
+
+## Case Studies
+
+- [Healthcare SLM: Radiology reasoning with a 1.7B model](https://hypervelocity.io/case-studies/slm.html): Hypervelocity adapted Qwen3 1.7B for a specific radiology workflow. On an internal benchmark of 833 held-out answers, the audited evaluation score for reasoning correctness increased from 0.324 to 0.982, a 203% improvement. Training and candidate-data generation cost less than $50. This was an internal benchmark, not a clinical-clearance study.
+- [Edge AI for Manufacturing: Offline open-set vision](https://hypervelocity.io/case-studies/edge-ai.html): Hypervelocity built an offline vision system that runs on existing edge hardware. On held-out production inputs covering known SKUs and non-SKU objects, it achieved 92% top-1 and 96% top-3 accuracy, reduced inference latency from about 400 ms to about 100 ms within a 240 ms cycle time, and eliminated 70% of manual data-entry events.
+
+## Optional
+
+- [Contact Hypervelocity](mailto:contact@hypervelocity.io): Inquiries about working with Hypervelocity.

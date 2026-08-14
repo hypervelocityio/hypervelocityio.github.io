@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# playwright-cli session state
+.playwright-cli/
+
+# Verification snapshots — regenerable with ./verify/run.sh <label>, ~1MB per run
+verify/snapshots/
+
+# Local audit / planning docs.
+# Deliberately untracked: every file in the deployed branch becomes a public
+# URL on hypervelocity.io, and these describe live bugs on the site.
+css-audit-report.html
+refactor-plan.html

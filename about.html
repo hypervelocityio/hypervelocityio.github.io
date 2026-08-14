@@ -5,17 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About | Hypervelocity — The team behind production AI</title>
 <meta name="description" content="The founders and advisors behind Hypervelocity. Senior engineers and AI leaders who design, build, and operate production AI systems and agentic workflows.">
-<link rel="canonical" href="https://hypervelocity.io/about">
+<link rel="canonical" href="https://hypervelocity.io/about.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Hypervelocity">
 <meta property="og:title" content="About | Hypervelocity">
 <meta property="og:description" content="The people who actually build your AI. Founders and advisors behind Hypervelocity.">
-<meta property="og:url" content="https://hypervelocity.io/about">
+<meta property="og:url" content="https://hypervelocity.io/about.html">
+<meta property="og:image" content="https://hypervelocity.io/images/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 
 <!-- Twitter -->
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hypervelocity.io/images/og.png">
 <meta name="twitter:title" content="About | Hypervelocity">
 <meta name="twitter:description" content="The people who actually build your AI. Founders and advisors behind Hypervelocity.">
 
@@ -53,204 +58,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --ink: #16191d;
-    --ink-2: #5d636b;
-    --ink-3: #8a9099;
-    --line: #e4e6ea;
-    --line-2: #eef0f2;
-    --ground: #ffffff;
-    --ground-2: #f7f8f9;
-    --accent: oklch(0.625 0.214 27);
-    --accent-ink: oklch(0.55 0.21 27);
-
-    --maxw: 1180px;
-    --pad: clamp(20px, 5vw, 64px);
-    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
-    --sans: "Geist", system-ui, sans-serif;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
-  body { font-family: var(--sans); color: var(--ink); background: var(--ground); line-height: 1.5; font-size: 17px; }
-  ::selection { background: var(--accent); color: #fff; }
-  a { color: inherit; text-decoration: none; }
-
-  .wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
-
-  /* ---------- Eyebrow ---------- */
-  .eyebrow {
-    font-family: var(--mono); font-size: 12px; font-weight: 500;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3);
-    display: inline-flex; align-items: center; gap: 9px; white-space: nowrap;
-  }
-  .eyebrow .tick { width: 22px; height: 1px; background: var(--accent); display: inline-block; }
-
-  /* ---------- Top bar (matches homepage) ---------- */
-  header.bar {
-    position: sticky; top: 0; z-index: 50;
-    background: rgba(255,255,255,0.82);
-    backdrop-filter: saturate(140%) blur(10px);
-    border-bottom: 1px solid var(--line);
-  }
-  .bar-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-  .wordmark { font-weight: 600; font-size: 18px; letter-spacing: -0.02em; display: inline-flex; align-items: baseline; gap: 0; }
-  .wordmark .hv-dot { color: var(--accent); }
-  .brand-lockup { display: inline-flex; align-items: center; gap: 12px; }
-  .brand-desc {
-    font-family: var(--mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.16em;
-    text-transform: uppercase; color: var(--ink-3); padding-left: 12px; border-left: 1px solid var(--line); white-space: nowrap;
-  }
-  .bar-right { display: inline-flex; align-items: center; gap: 22px; }
-  .bar-nav { display: inline-flex; gap: 22px; }
-  .bar-nav a {
-    font-family: var(--mono); font-size: 12.5px; font-weight: 500; letter-spacing: 0.04em;
-    text-transform: uppercase; color: var(--ink-2); transition: color .2s ease;
-  }
-  .bar-nav a:hover { color: var(--accent-ink); }
-  .bar-nav a.is-current { color: var(--ink); }
-  .bar-cta {
-    font-family: var(--mono); font-size: 12.5px; font-weight: 500; letter-spacing: 0.04em;
-    color: #fff; border: 1px solid var(--accent); background: var(--accent);
-    padding: 9px 15px; border-radius: 2px;
-    transition: background .25s ease, border-color .25s ease, color .25s ease;
-    display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
-  }
-  .bar-cta:hover { background: var(--accent-ink); border-color: var(--accent-ink); }
-  .bar-cta .arr { color: #fff; }
-  @media (max-width: 560px) {
-    .brand-desc { display: none; }
-    .bar-right { gap: 12px; }
-    .bar-cta { padding: 8px 12px; }
-  }
-  @media (max-width: 360px) {
-    .wordmark { font-size: 16px; }
-    .bar-nav { gap: 14px; }
-    .bar-cta { font-size: 11.5px; padding: 7px 10px; gap: 5px; }
-  }
-
-  /* ---------- Buttons ---------- */
-  .btn-primary {
-    background: var(--accent); color: #fff; font-weight: 500; font-size: 15.5px;
-    padding: 13px 22px; border-radius: 2px; display: inline-flex; align-items: center; gap: 10px;
-    transition: background .18s ease;
-  }
-  .btn-primary:hover { background: var(--accent-ink); }
-  .btn-primary .arr { transition: transform .2s ease; }
-  .btn-primary:hover .arr { transform: translateX(3px); }
-
-  /* ---------- Page header ---------- */
-  .page-head { border-bottom: 1px solid var(--line); }
-  .page-head-inner { padding: clamp(56px, 10vh, 120px) 0 clamp(44px, 7vh, 80px); }
-  .page-head h1 {
-    font-size: clamp(40px, 7vw, 88px); font-weight: 500; line-height: 0.98;
-    letter-spacing: -0.035em; margin-top: 20px; text-wrap: balance;
-  }
-  .page-head h1 .em { color: var(--accent); }
-  .page-head .sub {
-    margin-top: 22px; font-size: clamp(16px, 1.4vw, 19px); color: var(--ink-2);
-    max-width: 40em; line-height: 1.55; text-wrap: pretty;
-  }
-
-  /* ---------- Section scaffolding ---------- */
-  section { border-bottom: 1px solid var(--line); }
-  .sec-pad { padding-top: clamp(56px, 8vw, 100px); padding-bottom: clamp(56px, 8vw, 100px); }
-  .sec-label { margin-bottom: clamp(36px, 5vw, 56px); }
-  .sec-label h2 {
-    font-size: clamp(24px, 2.8vw, 34px); font-weight: 500; line-height: 1.05;
-    letter-spacing: -0.03em; margin-top: 16px; text-wrap: balance;
-  }
-  .sec-label .lead { margin-top: 14px; color: var(--ink-2); font-size: 17px; max-width: 38em; text-wrap: pretty; }
-
-  /* ---------- People grid (founders) ---------- */
-  .people {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: clamp(28px, 4vw, 56px);
-  }
-  .person { display: flex; flex-direction: column; }
-
-  /* Portrait: 4:5, B&W, hairline border, normalized crop */
-  .portrait {
-    position: relative; aspect-ratio: 4 / 5; width: 100%;
-    border: 1px solid var(--line); border-radius: 3px; overflow: hidden;
-    background: var(--ground-2);
-  }
-  .portrait img {
-    width: 100%; height: 100%; object-fit: cover; object-position: center top;
-    filter: grayscale(1) contrast(1.04);
-  }
-  /* Placeholder state (no photo yet) */
-  .portrait.is-empty { display: grid; place-items: center; }
-  .portrait.is-empty .initials {
-    font-family: var(--mono); font-size: clamp(40px, 6vw, 64px); font-weight: 500;
-    color: #c3c8ce; letter-spacing: 0.02em;
-  }
-  .portrait.is-empty::after {
-    content: "ADD PHOTO"; position: absolute; bottom: 12px; left: 0; right: 0; text-align: center;
-    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.18em; color: var(--ink-3);
-  }
-
-  .person-meta { margin-top: 22px; }
-  .person-name { font-size: 26px; font-weight: 500; letter-spacing: -0.02em; }
-  .person-role { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink); margin-top: 7px; }
-  .person-bio { margin-top: 16px; color: var(--ink-2); font-size: 16px; line-height: 1.62; text-wrap: pretty; }
-
-  /* Proof chips (founders only) */
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-  .chips span {
-    font-family: var(--mono); font-size: 12px; letter-spacing: 0.03em; color: var(--ink-2);
-    border: 1px solid var(--line); border-radius: 2px; padding: 5px 9px; white-space: nowrap;
-  }
-  .chips span:first-child { border-color: oklch(0.625 0.214 27 / 0.4); color: var(--accent-ink); }
-
-  /* ---------- Advisors (recessed band, smaller) ---------- */
-  .advisors { background: var(--ground-2); }
-  .advisors-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 4vw, 56px);
-  }
-  .advisor { display: flex; gap: 20px; align-items: flex-start; }
-  .advisor .portrait { width: 120px; flex: none; background: var(--ground); }
-  .advisor .portrait.is-empty .initials { font-size: 30px; }
-  .advisor .portrait.is-empty::after { font-size: 8px; bottom: 8px; }
-  .advisor-meta { padding-top: 4px; }
-  .advisor-name { font-size: 20px; font-weight: 500; letter-spacing: -0.02em; }
-  .advisor-auth { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.05em; color: var(--accent-ink); margin-top: 6px; text-transform: uppercase; }
-  .advisor-note { margin-top: 12px; color: var(--ink-2); font-size: 15px; line-height: 1.55; text-wrap: pretty; }
-
-  /* ---------- CTA close (mirrors homepage) ---------- */
-  .close-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(36px,6vw,80px); align-items: end; }
-  .close h2 { font-size: clamp(30px, 4vw, 52px); font-weight: 500; line-height: 1.0; letter-spacing: -0.035em; text-wrap: balance; }
-  .close h2 .em { color: var(--accent); }
-  .close .body { color: var(--ink-2); font-size: 17px; line-height: 1.6; text-wrap: pretty; }
-  .close-actions { margin-top: 28px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
-
-  /* ---------- Footer (matches homepage) ---------- */
-  footer { padding: 30px 0; }
-  .foot-inner {
-    display: flex; align-items: center; justify-content: space-between;
-    font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: var(--ink-3); flex-wrap: wrap; gap: 12px;
-  }
-  .foot-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
-  .foot-inner a:hover { color: var(--accent-ink); }
-
-  /* ---------- Reveal ---------- */
-  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
-  .reveal.in { opacity: 1; transform: none; }
-
-  /* ---------- Responsive ---------- */
-  @media (max-width: 760px) {
-    .people { grid-template-columns: 1fr; gap: 48px; }
-    .advisors-grid { grid-template-columns: 1fr; gap: 32px; }
-    .close-grid { grid-template-columns: 1fr; gap: 28px; }
-    .portrait { max-width: 360px; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .reveal { opacity: 1; transform: none; transition: none; }
-  }
-</style>
+<link rel="stylesheet" href="/assets/css/site.css">
 </head>
-<body>
+<body class="page-about">
 
 <header class="bar">
   <div class="wrap bar-inner">
@@ -262,7 +72,7 @@
       <nav class="bar-nav" aria-label="Primary">
         <a href="about.html" class="is-current" aria-current="page">About</a>
       </nav>
-      <a class="bar-cta" href="mailto:contact@hypervelocity.io">Talk to us <span class="arr">→</span></a>
+      <a class="bar-cta is-solid" href="mailto:contact@hypervelocity.io">Talk to us <span class="arr">→</span></a>
     </div>
   </div>
 </header>
@@ -292,7 +102,7 @@
         <!-- Raghotham -->
         <div class="person reveal">
           <div class="portrait">
-            <img src="images/raghotham.png" alt="Raghotham S" loading="lazy" width="800" height="1000">
+            <img src="images/raghotham.webp" alt="Raghotham S" loading="lazy" width="800" height="1000">
           </div>
           <div class="person-meta">
             <div class="person-name">Raghotham S</div>
@@ -311,7 +121,7 @@
         <!-- Shrayas -->
         <div class="person reveal">
           <div class="portrait">
-            <img src="images/shrayas.jpg" alt="Shrayas R" loading="lazy" width="800" height="1000">
+            <img src="images/shrayas.webp" alt="Shrayas R" loading="lazy" width="800" height="1000">
           </div>
           <div class="person-meta">
             <div class="person-name">Shrayas R</div>
@@ -341,7 +151,7 @@
 
       <div class="advisors-grid">
         <div class="advisor reveal">
-          <div class="portrait"><img src="images/nischal.png" alt="Nischal HP" loading="lazy" width="400" height="500"></div>
+          <div class="portrait"><img src="images/nischal.webp" alt="Nischal HP" loading="lazy" width="400" height="500"></div>
           <div class="advisor-meta">
             <div class="advisor-name">Nischal HP</div>
             <div class="advisor-auth">AI Executive · 15+ Years</div>
@@ -350,7 +160,7 @@
         </div>
 
         <div class="advisor reveal">
-          <div class="portrait"><img src="images/bargava.png" alt="Bargava Subramanian" loading="lazy" width="400" height="500"></div>
+          <div class="portrait"><img src="images/bargava.webp" alt="Bargava Subramanian" loading="lazy" width="400" height="500"></div>
           <div class="advisor-meta">
             <div class="advisor-name">Bargava Subramanian</div>
             <div class="advisor-auth">3x Founder · Healthcare AI</div>
@@ -393,15 +203,6 @@
   </div>
 </footer>
 
-<script>
-(function () {
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (en) {
-      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
-    });
-  }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
-  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
-})();
-</script>
+<script src="/assets/js/site.js"></script>
 </body>
 </html>

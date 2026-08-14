@@ -5,6 +5,7 @@
 <title>Hypervelocity | Production AI Engineering & Agentic Systems</title>
 <meta name="description" content="Hypervelocity designs, builds, and operates production AI systems, agents, and agentic workflows. We ship reliable AI for companies that cannot afford to get it wrong.">
 <link rel="canonical" href="https://hypervelocity.io/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -12,9 +13,13 @@
 <meta property="og:title" content="Hypervelocity | Production AI Engineering & Agentic Systems">
 <meta property="og:description" content="Production AI engineering for reliable agents, agentic workflows, and custom AI systems.">
 <meta property="og:url" content="https://hypervelocity.io/">
+<meta property="og:image" content="https://hypervelocity.io/images/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 
 <!-- Twitter -->
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hypervelocity.io/images/og.png">
 <meta name="twitter:title" content="Hypervelocity | Production AI Engineering & Agentic Systems">
 <meta name="twitter:description" content="Production AI engineering for reliable agents, agentic workflows, and custom AI systems.">
 
@@ -73,735 +78,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --ink: #16191d;
-    --ink-2: #5d636b;
-    --ink-3: #8a9099;
-    --line: #e4e6ea;
-    --line-2: #eef0f2;
-    --ground: #ffffff;
-    --ground-2: #f7f8f9;
-    --accent: oklch(0.625 0.214 27);
-    --accent-ink: oklch(0.55 0.21 27);
-
-    --maxw: 1180px;
-    --pad: clamp(20px, 5vw, 64px);
-    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
-    --sans: "Geist", system-ui, sans-serif;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
-
-  body {
-    font-family: var(--sans);
-    color: var(--ink);
-    background: var(--ground);
-    line-height: 1.5;
-    font-size: 17px;
-  }
-
-  ::selection { background: var(--accent); color: #fff; }
-
-  a { color: inherit; text-decoration: none; }
-
-  .wrap {
-    max-width: var(--maxw);
-    margin: 0 auto;
-    padding-left: var(--pad);
-    padding-right: var(--pad);
-  }
-
-  /* ---------- Eyebrow / mono label ---------- */
-  .eyebrow {
-    font-family: var(--mono);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    white-space: nowrap;
-  }
-  .eyebrow .tick {
-    width: 22px;
-    height: 1px;
-    background: var(--accent);
-    display: inline-block;
-  }
-
-  /* ---------- Top bar ---------- */
-  header.bar {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(255,255,255,0.82);
-    backdrop-filter: saturate(140%) blur(10px);
-    border-bottom: 1px solid var(--line);
-  }
-  .bar-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 64px;
-  }
-  .wordmark {
-    font-weight: 600;
-    font-size: 18px;
-    letter-spacing: -0.02em;
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0;
-  }
-  .wordmark .hv-dot {
-    color: var(--accent);
-  }
-  .brand-lockup { display: inline-flex; align-items: center; gap: 12px; }
-  .brand-desc {
-    font-family: var(--mono);
-    font-size: 10.5px;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    padding-left: 12px;
-    border-left: 1px solid var(--line);
-    white-space: nowrap;
-  }
-  .bar-cta {
-    font-family: var(--mono);
-    font-size: 12.5px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    color: var(--ink);
-    border: 1px solid var(--line);
-    padding: 9px 15px;
-    border-radius: 2px;
-    transition: background .25s ease, border-color .25s ease, color .25s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap;
-    background: transparent;
-  }
-  .bar-right { display: inline-flex; align-items: center; gap: 22px; }
-  .bar-nav { display: inline-flex; gap: 22px; }
-  .bar-nav a {
-    font-family: var(--mono); font-size: 12.5px; font-weight: 500; letter-spacing: 0.04em;
-    text-transform: uppercase; color: var(--ink-2); transition: color .2s ease;
-  }
-  .bar-nav a:hover { color: var(--accent-ink); }
-  @media (max-width: 560px) {
-    .brand-desc { display: none; }
-    .bar-right { gap: 12px; }
-    .bar-cta { padding: 8px 12px; }
-  }
-  @media (max-width: 360px) {
-    .wordmark { font-size: 16px; }
-    .bar-nav { gap: 14px; }
-    .bar-cta { font-size: 11.5px; padding: 7px 10px; gap: 5px; }
-  }
-  .bar-cta:hover { border-color: var(--accent); color: var(--accent-ink); }
-  .bar-cta .arr { color: var(--accent); transition: color .25s ease; }
-  /* After the hero scrolls past, the bar CTA fills with the accent for contrast */
-  .bar-cta.is-solid {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-  }
-  .bar-cta.is-solid:hover { background: var(--accent-ink); border-color: var(--accent-ink); color: #fff; }
-  .bar-cta.is-solid .arr { color: #fff; }
-
-  /* ---------- Hero ---------- */
-  .hero { position: relative; overflow: hidden; min-height: calc(100vh - 64px); display: grid; place-items: center; border-bottom: 1px solid var(--line); }
-  .hero-field { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; }
-  .hero-scrim {
-    position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background: radial-gradient(ellipse 66% 62% at 50% 44%, #ffffff 14%, rgba(255,255,255,0.74) 48%, rgba(255,255,255,0.30) 82%);
-  }
-  .hero .wrap { position: relative; z-index: 2; padding-top: clamp(48px, 8vh, 96px); padding-bottom: clamp(48px, 8vh, 96px); }
-  .hero-copy {
-    text-align: center;
-    display: flex; flex-direction: column; align-items: center;
-  }
-  .hero h1 {
-    font-size: clamp(36px, 5.2vw, 66px);
-    font-weight: 500;
-    line-height: 0.98;
-    letter-spacing: -0.035em;
-    margin-top: 22px;
-    text-wrap: balance;
-  }
-  .hero h1 .em { color: var(--accent); }
-  .hero .sub {
-    margin-top: 26px;
-    font-size: clamp(16px, 1.4vw, 19px);
-    color: var(--ink-2);
-    max-width: 36em;
-    line-height: 1.55;
-    text-wrap: pretty;
-  }
-  .hero-actions {
-    margin-top: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 22px;
-    flex-wrap: wrap;
-  }
-
-  /* ---------- Hero case studies (centered, in-fold) ---------- */
-  .hero-cases { margin-top: clamp(40px, 6vh, 68px); width: 100%; }
-  .cases-label {
-    display: block; text-align: center;
-    font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--ink-3);
-  }
-  .cs-cards {
-    display: flex; flex-wrap: wrap; justify-content: center; gap: 18px;
-    margin-top: clamp(18px, 2.6vw, 26px);
-  }
-  .cs-card {
-    flex: 1 1 340px; min-width: 0;
-    display: flex; align-items: center; gap: clamp(18px, 3vw, 34px);
-    text-align: left;
-    border: 1px solid var(--line); border-radius: 8px;
-    background: rgba(255,255,255,0.72); backdrop-filter: saturate(140%) blur(8px);
-    padding: clamp(20px, 2.4vw, 28px) clamp(22px, 2.6vw, 32px);
-    transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
-  }
-  .cs-card:hover {
-    border-color: var(--accent);
-    box-shadow: 0 18px 48px -22px rgba(20,25,30,0.32);
-    transform: translateY(-2px);
-  }
-  .cs-card-body { flex: 1; min-width: 0; }
-  .cs-card-tag {
-    font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--accent-ink);
-  }
-  .cs-card-title {
-    font-size: clamp(20px, 2.1vw, 27px); font-weight: 500; letter-spacing: -0.025em; line-height: 1.12;
-    margin-top: 10px; color: var(--ink); text-wrap: balance;
-  }
-  .cs-card-title .em { color: var(--accent); }
-  .cs-card-metrics { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 14px; }
-  .csm2 { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.01em; color: var(--ink-3); white-space: nowrap; }
-  .csm2 b { font-weight: 600; color: var(--ink-2); }
-  .csm2 b.accent { color: var(--accent); }
-  .cs-card-arrow {
-    flex: none; font-size: clamp(26px, 3vw, 34px); color: var(--accent); line-height: 1;
-    transition: transform .2s ease;
-  }
-  .cs-card:hover .cs-card-arrow { transform: translateX(5px); }
-  .cases-more {
-    text-align: center; margin-top: clamp(20px, 2.6vw, 28px);
-    font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3);
-  }
-
-  .btn-primary {
-    background: var(--accent);
-    color: #fff;
-    font-weight: 500;
-    font-size: 15.5px;
-    padding: 13px 22px;
-    border-radius: 2px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    transition: background .18s ease, transform .18s ease;
-  }
-  .btn-primary:hover { background: var(--accent-ink); }
-  .btn-primary .arr { transition: transform .2s ease; }
-  .btn-primary:hover .arr { transform: translateX(3px); }
-  .btn-text {
-    font-family: var(--mono);
-    font-size: 13px;
-    letter-spacing: 0.03em;
-    color: var(--ink-2);
-  }
-  .btn-text b { color: var(--ink); font-weight: 500; }
-
-  .vis-label {
-    position: absolute;
-    bottom: 18px;
-    right: var(--pad);
-    z-index: 2;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--ink-3);
-    text-transform: uppercase;
-    pointer-events: none;
-  }
-  .vis-label b { color: var(--accent-ink); font-weight: 600; }
-
-  /* ---------- Section scaffolding ---------- */
-  section { border-bottom: 1px solid var(--line); }
-  .sec-pad { padding-top: clamp(64px, 9vw, 116px); padding-bottom: clamp(64px, 9vw, 116px); }
-
-  .sec-head {
-    display: grid;
-    grid-template-columns: 1.55fr 1fr;
-    column-gap: clamp(32px, 6vw, 88px);
-    row-gap: 0;
-    align-items: start;
-  }
-  .sec-head > .eyebrow { grid-column: 1 / -1; }
-  .sec-head h2 {
-    font-size: clamp(30px, 4vw, 52px);
-    font-weight: 500;
-    line-height: 1.04;
-    letter-spacing: -0.032em;
-    margin-top: 18px;
-    text-wrap: balance;
-  }
-  .sec-head .lead {
-    margin: 18px 0 0;
-    color: var(--ink-2);
-    font-size: 18px;
-    line-height: 1.55;
-    text-wrap: pretty;
-  }
-
-  /* ---------- Wedge: two failure modes ---------- */
-  .wedge-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    margin-top: clamp(40px, 5vw, 64px);
-    border: 1px solid var(--line);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-  .wedge-cell {
-    padding: clamp(28px, 3vw, 44px);
-  }
-  .wedge-cell + .wedge-cell { border-left: 1px solid var(--line); }
-  .wedge-cell .num {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    color: var(--ink-3);
-  }
-  .wedge-cell h3 {
-    font-size: 23px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    margin-top: 14px;
-  }
-  .wedge-cell h3 .vec {
-    display: inline-block;
-    margin-left: 6px;
-    color: var(--ink-3);
-  }
-  .wedge-cell p {
-    margin-top: 14px;
-    color: var(--ink-2);
-    font-size: 16px;
-    line-height: 1.6;
-    text-wrap: pretty;
-  }
-  .wedge-resolve {
-    margin-top: 30px;
-    font-size: clamp(20px, 2.2vw, 28px);
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    line-height: 1.25;
-    max-width: 24em;
-    text-wrap: balance;
-  }
-  .wedge-resolve .em { color: var(--accent); }
-
-  /* centered section-head + helpers */
-  .sec-head.center { display: block; text-align: center; }
-  .sec-head.center .eyebrow { justify-content: center; }
-  .sec-head.center h2 { margin-left: auto; margin-right: auto; max-width: 18em; }
-  .sec-head.solo { display: block; }
-  .sec-head.solo h2 { max-width: 17em; }
-  .sec-head.center.wide h2 { max-width: 22em; }
-  .h2-sub {
-    display: block;
-    font-size: 0.66em;
-    font-weight: 500;
-    color: var(--ink-2);
-    letter-spacing: -0.02em;
-    margin-top: 0.5em;
-  }
-  .wedge-resolve.center { margin-left: auto; margin-right: auto; text-align: center; max-width: 26em; }
-
-  /* ---------- What we do ---------- */
-  .do-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    margin-top: clamp(40px, 5vw, 64px);
-    border-top: 1px solid var(--line);
-  }
-  .do-cell {
-    padding: 34px 30px 34px 0;
-    border-top: 1px solid transparent;
-  }
-  .do-cell + .do-cell { padding-left: 30px; border-left: 1px solid var(--line); }
-  .do-cell .tag {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent-ink);
-  }
-  .do-cell h3 {
-    font-size: 21px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    margin-top: 16px;
-  }
-  .do-cell p {
-    margin-top: 12px;
-    color: var(--ink-2);
-    font-size: 15.5px;
-    line-height: 1.6;
-    text-wrap: pretty;
-  }
-  .do-cell .opt { color: var(--ink-3); font-style: normal; }
-
-  /* ---------- Production-ready agents ---------- */
-  .agent-ready-grid {
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: clamp(36px, 6vw, 90px);
-    align-items: start;
-  }
-  .agent-ready h2 {
-    font-size: clamp(30px, 3.8vw, 50px);
-    font-weight: 500;
-    line-height: 1.05;
-    letter-spacing: -0.035em;
-    text-wrap: balance;
-  }
-  .agent-ready .answer {
-    margin-top: 24px;
-    color: var(--ink-2);
-    font-size: 18px;
-    line-height: 1.65;
-    text-wrap: pretty;
-  }
-  .agent-checks {
-    margin-top: clamp(48px, 5vw, 72px);
-    border-top: 1px solid var(--line);
-  }
-  .agent-checks li {
-    list-style: none;
-    border-bottom: 1px solid var(--line);
-    padding: 17px 0 17px 26px;
-    color: var(--ink-2);
-    font-size: 15px;
-    line-height: 1.5;
-    position: relative;
-  }
-  .agent-checks li::before {
-    content: "→";
-    color: var(--accent);
-    position: absolute;
-    left: 0;
-  }
-
-  /* ---------- Method spine ---------- */
-  .method { background: var(--ground-2); }
-  .spine {
-    margin-top: clamp(48px, 6vw, 76px);
-    position: relative;
-  }
-  .spine-track {
-    position: relative;
-    height: 2px;
-    background: var(--line);
-    margin: 0 6px;
-  }
-  .spine-fill {
-    position: absolute;
-    left: 0; top: 0; height: 100%;
-    width: 100%;
-    background: var(--accent);
-    transform-origin: left center;
-    transform: scaleX(0);
-  }
-  .spine-fill.go { transform: scaleX(1); transition: transform 2.4s cubic-bezier(.4,.5,.2,1) .2s; }
-  .spine-head {
-    position: absolute;
-    right: -1px; top: 50%;
-    width: 0; height: 0;
-    border-top: 6px solid transparent;
-    border-bottom: 6px solid transparent;
-    border-left: 11px solid var(--accent);
-    transform: translateY(-50%) scale(0);
-    transform-origin: center;
-  }
-  .spine-head.go { transform: translateY(-50%) scale(1); transition: transform .35s ease 2.5s; }
-
-  .phases {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    margin-top: 0;
-  }
-  .phase {
-    padding: 28px 26px 0 0;
-    position: relative;
-  }
-  .phase + .phase { padding-left: 26px; }
-  .phase .node {
-    position: absolute;
-    top: -33px;
-    left: 0;
-    width: 11px; height: 11px;
-    border-radius: 50%;
-    background: var(--ground-2);
-    border: 2px solid var(--accent);
-  }
-  .phase:first-child .node { background: var(--accent); }
-  .phase .step {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    color: var(--ink-3);
-  }
-  .phase h3 {
-    font-size: 20px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    margin-top: 10px;
-  }
-  .phase p {
-    margin-top: 11px;
-    color: var(--ink-2);
-    font-size: 15px;
-    line-height: 1.58;
-    text-wrap: pretty;
-  }
-  .method-foot {
-    margin-top: clamp(44px, 5vw, 64px);
-    display: flex;
-    gap: 14px;
-    align-items: baseline;
-    flex-wrap: wrap;
-    border-top: 1px solid var(--line);
-    padding-top: 28px;
-  }
-  .method-foot.center { justify-content: center; text-align: center; }
-  .method-foot .big {
-    font-size: clamp(19px, 2vw, 25px);
-    font-weight: 500;
-    letter-spacing: -0.02em;
-  }
-  .method-foot .big .em { color: var(--accent); }
-  .method-foot .small {
-    font-family: var(--mono);
-    font-size: 12.5px;
-    color: var(--ink-3);
-    letter-spacing: 0.03em;
-  }
-
-  /* ---------- Proof ---------- */
-  .proof-grid {
-    display: grid;
-    grid-template-columns: 1fr 0.8fr;
-    gap: clamp(36px, 6vw, 90px);
-    align-items: start;
-  }
-  .proof h2 {
-    font-size: clamp(28px, 3.4vw, 44px);
-    font-weight: 500;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    text-wrap: balance;
-  }
-  .proof h2 .em { color: var(--accent); }
-  .proof .body {
-    color: var(--ink-2);
-    font-size: 17px;
-    line-height: 1.62;
-    text-wrap: pretty;
-  }
-  .proof .body p + p { margin-top: 16px; }
-  .proof .body strong { color: var(--ink); font-weight: 500; }
-  .stats {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    border-top: 1px solid var(--line);
-  }
-  .stat {
-    padding: 20px 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .stat .v {
-    font-size: 30px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-  }
-  .stat .v .em { color: var(--accent); }
-  .domains { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-  .domains span {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.03em;
-    color: var(--ink-2);
-    border: 1px solid var(--line);
-    border-radius: 2px;
-    padding: 5px 9px;
-    white-space: nowrap;
-  }
-  .stat .k {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.05em;
-    color: var(--ink-3);
-    margin-top: 6px;
-    text-transform: uppercase;
-  }
-  .text-link {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: var(--mono); font-size: 13px; font-weight: 500; letter-spacing: 0.03em;
-    color: var(--accent-ink); margin-top: 28px;
-    border-bottom: 1px solid transparent; padding-bottom: 2px;
-    transition: border-color .2s ease;
-  }
-  .text-link:hover { border-color: var(--accent); }
-  .text-link .arr { transition: transform .2s ease; }
-  .text-link:hover .arr { transform: translateX(3px); }
-
-  /* founder mini-cards in the proof section */
-  .founder-peek { display: flex; gap: 18px; margin-top: 34px; }
-  .fp { display: flex; flex-direction: column; max-width: 150px; }
-  .fp-portrait {
-    aspect-ratio: 4 / 5; width: 100%; border: 1px solid var(--line); border-radius: 3px;
-    overflow: hidden; background: var(--ground-2); display: grid; place-items: center;
-  }
-  .fp-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(1) contrast(1.04); }
-  .fp-portrait .initials { font-family: var(--mono); font-size: 30px; font-weight: 500; color: #c3c8ce; }
-  .fp-name { font-size: 16px; font-weight: 500; letter-spacing: -0.01em; margin-top: 12px; }
-  .fp-role { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); margin-top: 4px; }
-
-  /* ---------- Close ---------- */
-  .close { }
-  .close-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(36px,6vw,80px); align-items: end; }
-  .close h2 {
-    font-size: clamp(32px, 4.4vw, 60px);
-    font-weight: 500;
-    line-height: 1.0;
-    letter-spacing: -0.035em;
-    text-wrap: balance;
-  }
-  .close h2 .em { color: var(--accent); }
-  .close .body {
-    color: var(--ink-2);
-    font-size: 17px;
-    line-height: 1.6;
-    text-wrap: pretty;
-  }
-  .close-actions { margin-top: 30px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
-
-  .soon {
-    margin-top: clamp(48px,6vw,72px);
-    border-top: 1px solid var(--line);
-    padding-top: 22px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-family: var(--mono);
-    font-size: 12.5px;
-    letter-spacing: 0.04em;
-    color: var(--ink-3);
-  }
-  .soon .pulse {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 0 var(--accent);
-    animation: pulse 2.4s ease-out infinite;
-  }
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 oklch(0.625 0.214 27 / 0.5); }
-    70% { box-shadow: 0 0 0 9px oklch(0.625 0.214 27 / 0); }
-    100% { box-shadow: 0 0 0 0 oklch(0.625 0.214 27 / 0); }
-  }
-
-  /* ---------- Footer ---------- */
-  footer {
-    padding: 30px 0;
-  }
-  .foot-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.04em;
-    color: var(--ink-3);
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .foot-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
-  .foot-inner a:hover { color: var(--accent-ink); }
-
-  /* ---------- Reveal ---------- */
-  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
-  .reveal.in { opacity: 1; transform: none; }
-
-  /* ---------- Responsive ---------- */
-  @media (max-width: 880px) {
-    .hero { min-height: 0; }
-    .hero-field { opacity: 0.6; }
-    .hero-scrim { background: radial-gradient(ellipse 88% 48% at 50% 46%, #fff 18%, rgba(255,255,255,0.62) 52%, rgba(255,255,255,0) 84%); }
-    .vis-label { display: none; }
-    .sec-head { grid-template-columns: 1fr; }
-    .sec-head .lead { margin: 16px 0 0; }
-    .wedge-grid { grid-template-columns: 1fr; }
-    .wedge-cell + .wedge-cell { border-left: none; border-top: 1px solid var(--line); }
-    .do-grid { grid-template-columns: 1fr; }
-    .agent-ready-grid { grid-template-columns: 1fr; }
-    .agent-checks { margin-top: 0; }
-    .do-cell { padding: 26px 0 !important; border-left: none !important; border-top: 1px solid var(--line); }
-    .do-grid { border-top: none; }
-    .phases { grid-template-columns: 1fr 1fr; gap: 20px 0; }
-    .proof-grid { grid-template-columns: 1fr; gap: 40px; }
-    .close-grid { grid-template-columns: 1fr; gap: 30px; }
-    .spine-track { display: none; }
-    .spine { margin-top: clamp(28px, 6vw, 40px); }
-    .phase { padding-left: 0 !important; }
-    .phase .node { display: none; }
-  }
-  @media (max-width: 520px) {
-    .phases { grid-template-columns: 1fr; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .reveal { opacity: 1; transform: none; transition: none; }
-  }
-</style>
+<link rel="stylesheet" href="/assets/css/site.css">
 </head>
-<body>
-
-<template id="__bundler_thumbnail" data-bg-color="#ffffff">
-  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1200" height="800" fill="#ffffff"/>
-    <g stroke="#78808a" stroke-width="6" stroke-linecap="round" opacity="0.28">
-      <line x1="300" y1="560" x2="560" y2="430"/>
-      <line x1="300" y1="560" x2="600" y2="470"/>
-      <line x1="300" y1="560" x2="540" y2="520"/>
-      <line x1="300" y1="560" x2="500" y2="380"/>
-    </g>
-    <g stroke="#e5341a" stroke-width="14" stroke-linecap="round" fill="#e5341a">
-      <line x1="300" y1="560" x2="860" y2="300"/>
-      <path d="M860 300 L812 300 L840 344 Z"/>
-    </g>
-    <text x="300" y="680" font-family="Geist, sans-serif" font-size="64" font-weight="600" fill="#16191d" letter-spacing="-2">Hypervelocity<tspan fill="#e5341a">.</tspan></text>
-  </svg>
-</template>
-
-
+<body class="page-home">
 
 <header class="bar">
   <div class="wrap bar-inner">
@@ -820,7 +99,7 @@
 
   <!-- HERO -->
   <section class="hero">
-    <canvas id="vectorCanvas" class="hero-field" aria-hidden="true" role="presentation" data-comment-anchor="a5ee21613d-canvas"></canvas>
+    <canvas id="vectorCanvas" class="hero-field" aria-hidden="true" role="presentation" data-density="0.082"></canvas>
     <div class="hero-scrim"></div>
     <div class="wrap">
       <div class="hero-copy">
@@ -867,12 +146,12 @@
   <!-- WEDGE -->
   <section class="wedge">
     <div class="wrap sec-pad">
-      <div class="sec-head center reveal">
-        <span class="eyebrow" data-comment-anchor="cf5f8f2a2a-span"><span class="tick"></span>THE PROBLEM<span class="tick"></span></span>
-        <h2 data-comment-anchor="d2136ee208-h2">There are two ways AI projects fail.</h2>
+      <div class="sec-head sec-head--center reveal">
+        <span class="eyebrow"><span class="tick"></span>THE PROBLEM<span class="tick"></span></span>
+        <h2>There are two ways AI projects fail.</h2>
       </div>
       <div class="wedge-grid reveal">
-        <div class="wedge-cell" data-comment-anchor="c82c29a823-div">
+        <div class="wedge-cell">
           <h3>Speed without direction <span class="vec">→↗↘</span></h3>
           <p>The AI agency or hype-shop ships something fast. It demos well. Then it never reaches production, because nobody asked whether it was the right thing to build. Six months and a budget, spent on motion that went nowhere.</p>
         </div>
@@ -881,16 +160,16 @@
           <p>The big consultancy delivers a beautiful 80-slide strategy and a bench of juniors. A year later there is still no working software: just a roadmap, a retainer, and an invoice. Correct, maybe. Shipped, no.</p>
         </div>
       </div>
-      <p class="wedge-resolve center reveal">Velocity is both. We point at the right problem <span class="em">first</span>, then ship it smoothly.</p>
+      <p class="wedge-resolve reveal">Velocity is both. We point at the right problem <span class="em">first</span>, then ship it smoothly.</p>
     </div>
   </section>
 
   <!-- WHAT WE DO -->
   <section class="dowork" id="capabilities">
     <div class="wrap sec-pad">
-      <div class="sec-head center wide reveal" data-comment-anchor="6c88c2c0a2-div">
+      <div class="sec-head sec-head--center wide reveal">
         <span class="eyebrow"><span class="tick"></span>WHAT WE DO<span class="tick"></span></span>
-        <h2 data-comment-anchor="cfd1995366-p">Production AI systems that reason, act, and improve.<span class="h2-sub">Reliable systems, built around real business outcomes.</span></h2>
+        <h2>Production AI systems that reason, act, and improve.<span class="h2-sub">Reliable systems, built around real business outcomes.</span></h2>
       </div>
       <div class="do-grid reveal">
         <div class="do-cell">
@@ -934,10 +213,10 @@
 
   <!-- METHOD SPINE -->
   <section class="method" id="method">
-    <div class="wrap sec-pad" data-comment-anchor="41072c19e1-div">
-      <div class="sec-head center reveal">
+    <div class="wrap sec-pad">
+      <div class="sec-head sec-head--center reveal">
         <span class="eyebrow"><span class="tick"></span>HOW WE WORK<span class="tick"></span></span>
-        <h2 data-comment-anchor="f0c10422e7-h2">Four phases. One trajectory.</h2>
+        <h2>Four phases. One trajectory.</h2>
       </div>
 
       <div class="spine reveal">
@@ -946,7 +225,7 @@
           <div class="spine-head" id="spineHead"></div>
         </div>
         <div class="phases">
-          <div class="phase" data-comment-anchor="5de24d4a9f-div">
+          <div class="phase">
             <span class="node"></span>
             <span class="step">PHASE 01</span>
             <h3>Discover</h3>
@@ -956,25 +235,25 @@
             <span class="node"></span>
             <span class="step">PHASE 02</span>
             <h3>Prototype &amp; Evaluate</h3>
-            <p data-comment-anchor="de168bbabe-p">Build the smallest real system and evaluate quality, usability, latency, and cost against measurable success criteria.</p>
+            <p>Build the smallest real system and evaluate quality, usability, latency, and cost against measurable success criteria.</p>
           </div>
           <div class="phase">
             <span class="node"></span>
             <span class="step">PHASE 03</span>
             <h3>Harden</h3>
-            <p data-comment-anchor="f7ec79b55a-p">Integrate the system and add the evaluations, observability, security, guardrails, and failure handling required for production.</p>
+            <p>Integrate the system and add the evaluations, observability, security, guardrails, and failure handling required for production.</p>
           </div>
           <div class="phase">
             <span class="node"></span>
             <span class="step">PHASE 04</span>
             <h3>Deploy &amp; Operate</h3>
-            <p data-comment-anchor="4d8d1b7711-p">Deploy into real workflows, monitor production performance, and improve the system as needs, data, and models evolve.</p>
+            <p>Deploy into real workflows, monitor production performance, and improve the system as needs, data, and models evolve.</p>
           </div>
         </div>
       </div>
 
       <div class="method-foot center reveal">
-        <span class="big">Direction first. Then <span class="em" data-comment-anchor="7fcae57d5d-span">magnitude.</span></span>
+        <span class="big">Direction first. Then <span class="em">magnitude.</span></span>
         <span class="small">// slow is smooth, smooth is fast</span>
       </div>
     </div>
@@ -989,12 +268,12 @@
           <h2 style="line-height: 1">We are experts who have shipped hardened, time-tested, comprehensive systems before.</h2>
           <div class="founder-peek">
             <div class="fp">
-              <div class="fp-portrait"><img src="images/raghotham.png" alt="Raghotham S" loading="lazy" width="800" height="1000"></div>
+              <div class="fp-portrait"><img src="images/raghotham.webp" alt="Raghotham S" loading="lazy" width="800" height="1000"></div>
               <div class="fp-name">Raghotham S</div>
               <div class="fp-role">CEO &amp; Co-Founder</div>
             </div>
             <div class="fp">
-              <div class="fp-portrait"><img src="images/shrayas.jpg" alt="Shrayas R" loading="lazy" width="800" height="1000"></div>
+              <div class="fp-portrait"><img src="images/shrayas.webp" alt="Shrayas R" loading="lazy" width="800" height="1000"></div>
               <div class="fp-name">Shrayas R</div>
               <div class="fp-role">CTO &amp; Co-Founder</div>
             </div>
@@ -1003,7 +282,7 @@
         </div>
         <div class="reveal">
           <div class="body">
-            <p data-comment-anchor="e98502d4ed-p">We have <strong>10+ years</strong> of AI engineering and applied AI work, building hardcore systems across more domains than most firms will ever touch. We drop into your world, speak your language, and ship.</p>
+            <p>We have <strong>10+ years</strong> of AI engineering and applied AI work, building hardcore systems across more domains than most firms will ever touch. We drop into your world, speak your language, and ship.</p>
             <p>That range is the point: domain fluency is what turns raw speed into <strong>velocity</strong>.</p>
           </div>
           <div class="stats" style="margin-top:28px;">
@@ -1013,7 +292,7 @@
             </div>
             <div class="stat">
               <div class="v"><span class="em">10+</span> domains</div>
-              <div class="domains" data-comment-anchor="5b98accf88-div">
+              <div class="domains">
                 <span>Fintech</span>
                 <span>Retail</span>
                 <span>Healthcare</span>
@@ -1031,14 +310,14 @@
 
   <!-- CLOSE -->
   <section class="close" id="contact">
-    <div class="wrap sec-pad" data-comment-anchor="74a5295055-div">
+    <div class="wrap sec-pad">
       <div class="close-grid">
         <div class="reveal">
           <span class="eyebrow"><span class="tick"></span>GET IN TOUCH</span>
           <h2 style="margin-top:18px;">Let's point you in the <span class="em">right direction.</span></h2>
         </div>
         <div class="reveal">
-          <p class="body" data-comment-anchor="81e1634974-p">Tell us where you are on your AI journey. We'll show you the fastest line to where you need to be.</p>
+          <p class="body">Tell us where you are on your AI journey. We'll show you the fastest line to where you need to be.</p>
           <div class="close-actions">
             <a class="btn-primary" href="mailto:contact@hypervelocity.io">contact@hypervelocity.io <span class="arr">→</span></a>
           </div>
@@ -1069,102 +348,7 @@
   </div>
 </footer>
 
-<script>
-(function () {
-  /* ---------- Hero: static bed of grey arrows, SW → NE ---------- */
-  var canvas = document.getElementById('vectorCanvas');
-  var ctx = canvas.getContext('2d');
-  var dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
-  var W = 0, H = 0;
-  var GREY = '#b4bac1';
-  var ANG = -Math.PI / 4;                       // up-right: south-west → north-east
-
-  function arrow(x, y, ang, len, color, alpha, w, head) {
-    var ex = x + Math.cos(ang) * len, ey = y + Math.sin(ang) * len;
-    ctx.globalAlpha = alpha; ctx.strokeStyle = color; ctx.fillStyle = color;
-    ctx.lineWidth = w; ctx.lineCap = 'round';
-    ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(ex, ey); ctx.stroke();
-    if (head) {
-      var a1 = ang + Math.PI * 0.82, a2 = ang - Math.PI * 0.82;
-      ctx.beginPath(); ctx.moveTo(ex, ey);
-      ctx.lineTo(ex + Math.cos(a1) * head, ey + Math.sin(a1) * head);
-      ctx.lineTo(ex + Math.cos(a2) * head, ey + Math.sin(a2) * head);
-      ctx.closePath(); ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-  }
-
-  function draw() {
-    var r = canvas.getBoundingClientRect();
-    W = r.width; H = r.height;
-    canvas.width = Math.round(W * dpr);
-    canvas.height = Math.round(H * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, W, H);
-
-    var gap = Math.max(72, Math.min(W, H) * 0.082);
-    var len = gap * 0.5;
-    var head = Math.max(4, len * 0.26);
-    var cols = Math.ceil(W / gap) + 2, rows = Math.ceil(H / gap) + 2;
-    var offx = (W - (cols - 1) * gap) / 2;
-    var offy = (H - (rows - 1) * gap) / 2;
-    var hx = Math.cos(ANG) * len / 2, hy = Math.sin(ANG) * len / 2;
-
-    for (var iy = 0; iy < rows; iy++) {
-      for (var ix = 0; ix < cols; ix++) {
-        var cx = offx + ix * gap, cy = offy + iy * gap;
-        arrow(cx - hx, cy - hy, ANG, len, GREY, 0.5, 1.3, head);
-      }
-    }
-  }
-
-  draw();
-  var rt;
-  window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(draw, 120); });
-
-  /* ---------- Scroll reveal ---------- */
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (en) {
-      if (en.isIntersecting) {
-        en.target.classList.add('in');
-        if (en.target.id === 'methodSpineTrigger') {}
-        io.unobserve(en.target);
-      }
-    });
-  }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
-  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
-
-  /* ---------- Bar CTA: fill with accent once the hero is out of view ---------- */
-  var barCta = document.querySelector('.bar-cta');
-  var heroEl = document.querySelector('.hero');
-  if (barCta && heroEl) {
-    var cio = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        // hero no longer intersecting (scrolled past) -> solid CTA
-        barCta.classList.toggle('is-solid', !en.isIntersecting);
-      });
-    }, { threshold: 0, rootMargin: '-' + 64 + 'px 0px 0px 0px' });
-    cio.observe(heroEl);
-  }
-
-  /* ---------- Spine fill on view ---------- */
-  var spine = document.querySelector('.spine');
-  var fill = document.getElementById('spineFill');
-  var head = document.getElementById('spineHead');
-  if (spine && fill) {
-    var sio = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) {
-          fill.classList.add('go');
-          head.classList.add('go');
-          sio.unobserve(en.target);
-        }
-      });
-    }, { threshold: 0.55 });
-    sio.observe(spine);
-  }
-})();
-</script>
+<script src="/assets/js/site.js"></script>
 
 
 </body></html>

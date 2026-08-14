@@ -185,7 +185,7 @@ section { border-bottom: 1px solid var(--line); }
   margin-top: clamp(18px, 2.6vw, 26px);
 }
 .cs-card {
-  flex: 1 1 340px; min-width: 0;
+  flex: 1 1 300px; min-width: 0;
   display: flex; align-items: center; gap: clamp(18px, 3vw, 34px);
   text-align: left;
   border: 1px solid var(--line); border-radius: 8px;

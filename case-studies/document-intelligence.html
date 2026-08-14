@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study | A $5,000/month document bill replaced by a $250/month stack | Hypervelocity</title>
+<meta name="description" content="How Hypervelocity replaced a per-page cloud document API with an open-weight document intelligence stack for a US non-profit: 94.2% mean token recall, every page processed on-prem, and monthly cost down from $5,000 to $250.">
+<link rel="canonical" href="https://hypervelocity.io/case-studies/document-intelligence.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Hypervelocity">
+<meta property="og:title" content="A $5,000/month document bill replaced by a $250/month stack">
+<meta property="og:description" content="Document processing on open-weight models for a US non-profit: 94.2% mean token recall, zero cloud calls at inference, and a monthly cost of $250 instead of $5,000.">
+<meta property="og:url" content="https://hypervelocity.io/case-studies/document-intelligence.html">
+<meta property="og:image" content="https://hypervelocity.io/images/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hypervelocity.io/images/og.png">
+<meta name="twitter:title" content="A $5,000/month document bill replaced by a $250/month stack">
+<meta name="twitter:description" content="Document processing on open-weight models for a US non-profit: 94.2% mean token recall, zero cloud calls at inference, and a monthly cost of $250 instead of $5,000.">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Document Intelligence on Open-Weight Models",
+  "description": "How Hypervelocity replaced a per-page cloud document API for a US-based non-profit with an open-weight document intelligence stack running on rented CPU servers, matching the cloud API's accuracy at a twentieth of the monthly cost.",
+  "author": { "@type": "Organization", "name": "Hypervelocity", "url": "https://hypervelocity.io/" },
+  "publisher": { "@type": "Organization", "name": "Hypervelocity", "url": "https://hypervelocity.io/" },
+  "about": ["Document intelligence", "OCR", "Open-weight models", "On-prem inference", "Applied AI"],
+  "mainEntityOfPage": "https://hypervelocity.io/case-studies/document-intelligence.html"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+<style>
+  /* page-scoped: case studies opt into smooth in-page scrolling */
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  /* page-scoped: the cloud-API bar spans the full track, so its label sits inside the bar */
+  #chart-cost .barrow--full .bval { position: absolute; right: 12px; padding-left: 0; color: #fff; }
+</style>
+</head>
+<body class="page-cs">
+
+<header class="bar">
+  <div class="wrap bar-inner">
+    <div class="brand-lockup">
+      <a class="wordmark" href="../index.html">Hypervelocity<span class="hv-dot">.</span></a>
+      <span class="brand-desc">Production AI · Agentic Systems</span>
+    </div>
+    <div class="bar-right">
+      <nav class="bar-nav" aria-label="Primary"><a href="../about.html">About</a></nav>
+      <a class="bar-cta" href="mailto:contact@hypervelocity.io">Talk to us <span class="arr">→</span></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO + METRIC TILES -->
+  <section class="cs-hero">
+    <canvas id="vectorCanvas" class="cs-hero-field" aria-hidden="true" role="presentation" data-density="0.1"></canvas>
+    <div class="cs-hero-scrim"></div>
+    <div class="wrap cs-hero-grid">
+      <div class="cs-hero-copy">
+        <span class="eyebrow"><span class="tick"></span>CASE STUDY · DOCUMENT INTELLIGENCE</span>
+        <h1>How we replaced a $5,000/month bill with a <span class="em">$250/month stack</span> without losing accuracy.</h1>
+        <p class="sub">We built document processing for a US-based non-profit on open-weight models. The system runs on two rented CPU servers and keeps every page on-prem. Accuracy matches the cloud API it replaced.</p>
+      </div>
+      <div class="metrics-stack">
+        <div class="metric">
+          <div class="mv">$250<span class="unit">/mo</span></div>
+          <div class="mtext">
+            <div class="mk">Monthly processing cost</div>
+            <div class="md"><code>$5,000 → $250</code>. A per-page cloud API replaced by an open-weight stack on rented CPU.</div>
+          </div>
+        </div>
+        <div class="metric">
+          <div class="mv">94.2<span class="unit">%</span></div>
+          <div class="mtext">
+            <div class="mk">Mean token recall</div>
+            <div class="md">Scored against the embedded PDF text layer across the full document set, including one plain-text reference file. Worst OCR'd document: 91%.</div>
+          </div>
+        </div>
+        <div class="metric">
+          <div class="mv accent">0</div>
+          <div class="mtext">
+            <div class="mk">Cloud calls at inference</div>
+            <div class="md">Every page processed on-prem. No per-page meter, no data leaving the building.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section class="summary">
+    <div class="wrap sec-pad">
+      <div class="summary-grid">
+        <div class="summary-lead reveal">
+          <span class="eyebrow"><span class="tick"></span>EXECUTIVE SUMMARY</span>
+          <h2>What a document intelligence stack costs when you <span class="em">own the model</span>.</h2>
+          <span class="kicker"><span class="dot"></span>What we replaced and what changed.</span>
+        </div>
+        <div class="summary-points reveal">
+          <div class="sp">
+            <span class="sp-n">01</span>
+            <div>
+              <div class="sp-k">The objective</div>
+              <p class="sp-t">Replace a per-page cloud document API with a document intelligence system that reads forms and scanned documents at the same accuracy, for a fixed monthly cost.</p>
+            </div>
+          </div>
+          <div class="sp">
+            <span class="sp-n">02</span>
+            <div>
+              <div class="sp-k">The method</div>
+              <p class="sp-t">Benchmark eight open-weight models on the client's real documents and score them against the reference cloud API — accuracy, structure and license options. Deploy the winner on rented CPU servers behind a job queue.</p>
+            </div>
+          </div>
+          <div class="sp">
+            <span class="sp-n">03</span>
+            <div>
+              <div class="sp-k">The result</div>
+              <p class="sp-t">Same accuracy tier as the cloud API. Monthly cost fell from roughly <span class="em">$5,000 to $250</span>. The stack reads every document type the client sends it.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE BUSINESS PROBLEM -->
+  <section class="problem">
+    <div class="wrap sec-pad">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="tick"></span>THE BUSINESS PROBLEM</span>
+        <h2>Document intelligence is <span class="em">not OCR</span>.</h2>
+        <p class="lead">OCR was solved a decade ago: put a clean page in, get text out. Document intelligence is what happens after. Given a messy real document the goal is to produce structured and ordered content that downstream systems can trust.</p>
+      </div>
+      <div class="prose tight reveal">
+        <p>Three properties make it hard:</p>
+      </div>
+      <div class="do-grid reveal">
+        <div class="do-cell">
+          <span class="tag">Problem 01</span>
+          <h3>Layout and reading order</h3>
+          <p>Cheap OCR flattens all of it into line soup. A two-column report, a nested table, a form spread across two pages all go for a toss. A document intelligence system has to preserve structure and emit content in the order a human would read it. Else the text is incorrect and practically useless.</p>
+        </div>
+        <div class="do-cell">
+          <span class="tag">Problem 02</span>
+          <h3>Forms and filled fields</h3>
+          <p>Half the documents in regulated industries are forms: checkboxes, filled fields, signatures and a few handwritten notes. The system has to record what was asked and what was answered.</p>
+        </div>
+        <div class="do-cell">
+          <span class="tag">Problem 03</span>
+          <h3>Mixed-quality inputs</h3>
+          <p>In the insurance and fintech domain, scans at 150 DPI, photos of paper, redaction bars are all common input. The system has to handle all of them without a separate pipeline per input type.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE CONSTRAINT -->
+  <section class="constraint">
+    <div class="wrap sec-pad">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="tick"></span>THE CONSTRAINT</span>
+        <h2>The mixed document types.</h2>
+        <p class="lead">The client is a US-based non-profit serving families navigating complex benefit programs. The document mix: intake forms, diagnostic-style reports, grant applications, discharge and outcome reports, scanned emails and attachments. Around a hundred thousand pages a month, all of it sensitive.</p>
+      </div>
+      <div class="wedge-grid reveal">
+        <div class="wedge-cell">
+          <span class="tag">Constraint 01</span>
+          <h3>Data compliance</h3>
+          <p>Client documents could not leave their infrastructure. Cloud APIs were a compliance problem before they were a cost problem.</p>
+        </div>
+        <div class="wedge-cell">
+          <span class="tag">Constraint 02</span>
+          <h3>Budget</h3>
+          <p>The stack had to fit a non-profit budget while absorbing intake bursts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE TESTED -->
+  <section class="tested">
+    <div class="wrap sec-pad">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="tick"></span>WHAT WE TESTED</span>
+        <h2>Eight models on the client's own documents.</h2>
+        <p class="lead">We took around two dozen of the client's real documents and ran every candidate through the same harness. The set covered digital PDFs, scanned pages and standalone images.</p>
+      </div>
+      <div class="prose tight reveal">
+        <p>Each model received identical input and was scored on the same outputs: text accuracy against the embedded PDF layer, structural fidelity on tables and forms, reading order and per-block confidence. The candidates spanned open-weight models from sub-1B to 9B parameters, plus the cloud API as a reference standard.</p>
+        <p>We expected the cloud API to win on accuracy, while we saw the open-weight models hold up similar accuracy metrics. This is also proven by multiple benchmarks like olmOCR-bench and ExtractBench.</p>
+      </div>
+      <div class="gains reveal">
+        <span>Text accuracy <b>· vs the embedded PDF layer</b></span>
+        <span>Structural fidelity <b>· tables and forms</b></span>
+        <span>Reading order <b>· as a human would read it</b></span>
+        <span>Confidence <b>· per block</b></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE FOUND -->
+  <section class="found" style="background: var(--ground-2);">
+    <div class="wrap sec-pad">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="tick"></span>WHAT WE FOUND</span>
+        <h2>Small open-weight models have <span class="em">caught up</span>.</h2>
+        <p class="lead">On the public olmOCR-bench, the best sub-1B open-weight model scores 83.3 out of 100, ahead of models five to fifty times its size. On the client's documents the same pattern held. The small models matched the cloud API on token accuracy and beat it on structure: tables came back as tables, checked boxes came back checked.</p>
+      </div>
+      <div class="prose tight reveal">
+        <p>Two models sat at the top of our evaluation with statistically identical accuracy and output structure. What separated them was the license — and the license maps to organization size.</p>
+      </div>
+      <p class="wedge-resolve reveal">The deciding factor moved from model size to <span class="em">model license</span>.</p>
+    </div>
+  </section>
+
+  <!-- THE STACK -->
+  <section class="stack">
+    <div class="wrap sec-pad">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="tick"></span>THE STACK</span>
+        <h2>Architecture.</h2>
+        <p class="lead">Both model stacks run the same way: a small vision-language model behind a job queue on rented CPU servers. One call per page returns text, tables, form fields, reading order, and bounding boxes. No GPU required at this volume.</p>
+      </div>
+      <div class="wedge-grid reveal">
+        <div class="wedge-cell">
+          <span class="tag">Startup path · OpenRail-M</span>
+          <h3>Surya 2</h3>
+          <p>Free for non-profits, startups under $5M in funding or revenue, and for research use. Best accuracy per parameter in its class.</p>
+          <div class="answer">
+            <span class="at">Deployed for this client</span>
+            <p>This is what we deployed for the client.</p>
+          </div>
+        </div>
+        <div class="wedge-cell">
+          <span class="tag">Enterprise path · Apache 2.0</span>
+          <h3>LightOnOCR 2 1B</h3>
+          <p>Same accuracy tier under a fully permissive license with no revenue threshold.</p>
+          <div class="answer">
+            <span class="at">Default for enterprises</span>
+            <p>The default recommendation for enterprises and for any team that cannot accept OpenRail-M license conditions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE NUMBERS -->
+  <section class="results" id="results">
+    <div class="wrap sec-pad">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="tick"></span>THE NUMBERS</span>
+        <h2>What the stack costs to run.</h2>
+        <p class="lead">The deployed stack: two shared CPU servers behind a job queue with object storage and monitoring alongside.</p>
+      </div>
+
+      <!-- CHART: monthly cost -->
+      <div class="chartcard reveal">
+        <span class="ct-eyebrow">Chart 01 · Monthly cost</span>
+        <h3>Monthly processing cost &nbsp;<span class="delta">20&times; lower</span></h3>
+        <p class="ct-note">Estimated cost of the cloud document intelligence platform, billed per page, against Surya-2 on two rented CPU servers. Bars are drawn to a true $0&ndash;$5,000 scale.</p>
+        <div class="barchart" id="chart-cost">
+          <div class="barrow barrow--full">
+            <span class="blabel">Cloud API</span>
+            <div class="bartrack"><div class="barfill before" data-target="100"></div><span class="bval">~$5,000/mo</span></div>
+          </div>
+          <div class="barrow">
+            <span class="blabel">This stack</span>
+            <div class="bartrack"><div class="barfill after" data-target="5"></div><span class="bval">~$250/mo</span></div>
+          </div>
+          <div class="baraxis" aria-hidden="true">
+            <span class="axis-cap">cost →</span>
+            <div class="axis-line">
+              <span class="tick" style="left:0%;">0</span>
+              <span class="tick" style="left:50%;">$2,500</span>
+              <span class="tick" style="left:100%;">$5,000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose tight reveal">
+        <p>At ten times the current volume, the cost advantage grows. <strong>The API bill scales linearly with pages while the server bill steps up one server at a time.</strong></p>
+        <p>On-prem inference has a second effect that does not show up in the numbers. Your data stays inside your infrastructure, which matters under HIPAA and the equivalent regimes in geographies like the EU and UAE.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUSINESS IMPACT -->
+  <section class="impact">
+    <div class="wrap sec-pad">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="tick"></span>BUSINESS IMPACT</span>
+        <h2>The queue absorbs the burst.</h2>
+        <p class="lead">The sporadic intake spikes would mean a larger API bill. Now they mean a longer queue that drains overnight. The client kept up the accuracy bar and removed the per-page meter.</p>
+      </div>
+      <p class="wedge-resolve reveal">The same document intelligence pattern applies anywhere documents arrive in volume: <span class="em">claims intake, prior authorization, KYC packets, loan files</span>.</p>
+    </div>
+  </section>
+
+  <!-- YOU NEED BETTER THAN THE DEFAULT -->
+  <section class="default-sec" style="background: var(--ground-2);">
+    <div class="wrap sec-pad">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="tick"></span>YOU NEED BETTER THAN THE DEFAULT</span>
+        <h2>Every document intake problem gets the same solution: <span class="em">call an API</span>.</h2>
+        <p class="lead">Most teams wire in a cloud API because it is the fastest path to a working demo. The per-page meter feels cheap at prototype volume. The bill grows in a straight line with volume and the meter never turns into ownership.</p>
+      </div>
+      <div class="prose tight reveal">
+        <p>Raw extraction APIs have dropped to $4 to $7 per 1,000 pages. Extraction is not document intelligence. No per-field confidence to route a review, no contractual geometry for redaction. The same page can come back different on two runs. Build the missing layer around a raw API and you end up building this stack, while you still rent the model and pay the meter.</p>
+        <p>Regulated domains make the arrangement harder. When documents cannot leave your infrastructure, the public endpoint is not an option at all. The choices narrow to a premium private deployment of someone else's model, or an enterprise agreement for the privilege of sending your own data out and back.</p>
+        <p>Most document work does not need an instant answer. A document can sit in a queue for a minute or two and nobody notices. That single fact is what makes a CPU stack viable and it is why the per-page premium buys so little.</p>
+        <p>None of this is an argument against document intelligence APIs. At low volume they are the right answer, and we deploy them when they are. The skill is knowing your volumes: a startup at thousands of pages a month and an insurer at millions have different optimal stacks, and a document that needs an answer in seconds is different from one that can wait a minute.</p>
+      </div>
+      <p class="wedge-resolve reveal">Our work is making that call with you, then building whichever option <span class="em">returns more on every dollar</span>.</p>
+    </div>
+  </section>
+
+  <!-- CLOSE / CTA -->
+  <section class="close" id="contact">
+    <div class="wrap sec-pad">
+      <div class="close-grid">
+        <div class="reveal">
+          <span class="eyebrow"><span class="tick"></span>CALL TO ACTION</span>
+          <h2 style="margin-top:18px;">Which documents are you still paying <span class="em">per page</span> to read?</h2>
+        </div>
+        <div class="reveal">
+          <p class="body">We help healthcare and insurance teams rebuild document processing on open-weight models. The typical outcome is a 5 to 10&times; cost reduction with no accuracy trade-off. If you're scoping something similar, let's talk.</p>
+          <div class="close-actions">
+            <a class="btn-primary" href="mailto:contact@hypervelocity.io">Talk to us <span class="arr">→</span></a>
+            <a class="text-link" href="../index.html">Back to home <span class="arr">→</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <span>HYPERVELOCITY © 2026</span>
+    <span class="foot-desc">PRODUCTION AI · AI AGENTS · AGENTIC SYSTEMS · APPLIED AI</span>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="../index.html">HOME</a>
+      <a href="../about.html">ABOUT</a>
+      <a href="mailto:contact@hypervelocity.io">CONTACT</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="/assets/js/site.js"></script>
+
+</body>
+</html>

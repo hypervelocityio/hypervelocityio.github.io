@@ -9,7 +9,7 @@ Hypervelocity works in four phases: Discover; Prototype & Evaluate; Harden; and 
 ## Company
 
 - [Hypervelocity homepage](https://hypervelocity.io/): Company overview, production AI capabilities, operating method, case-study highlights, and contact information.
-- [About Hypervelocity](https://hypervelocity.io/about.html): Background on co-founders Raghotham S and Shrayas R and advisors Nischal HP and Bargava Subramanian.
+- [About Hypervelocity](https://hypervelocity.io/about.html): Background on co-founders Raghotham S and Shrayas R and advisors Nischal HP, Bargava Subramanian and Ramesh Mugalam.
 
 ## Case Studies
 

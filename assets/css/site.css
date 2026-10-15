@@ -222,6 +222,35 @@ section { border-bottom: 1px solid var(--line); }
   font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3);
 }
 
+/* ---------- Home: hero testimonials ---------- */
+.hero-quotes { margin-top: clamp(40px, 6vh, 68px); width: 100%; }
+.tq-cards {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 18px;
+  margin-top: clamp(18px, 2.6vw, 26px);
+}
+.tq-card {
+  position: relative; flex: 1 1 420px; max-width: 760px; min-width: 0; margin: 0;
+  text-align: left;
+  border: 1px solid var(--line); border-radius: 8px;
+  background: rgba(255,255,255,0.72); backdrop-filter: saturate(140%) blur(8px);
+  padding: clamp(24px, 2.6vw, 32px) clamp(24px, 3vw, 40px) clamp(22px, 2.6vw, 30px);
+}
+.tq-logo { display: block; width: auto; height: clamp(24px, 2.4vw, 30px); }
+.tq-text {
+  margin: 0; padding-top: clamp(14px, 1.6vw, 20px);
+  font-size: clamp(16px, 1.35vw, 19px); font-weight: 400; line-height: 1.55;
+  letter-spacing: -0.012em; color: var(--ink); text-wrap: pretty;
+}
+.tq-text p { margin: 0; }
+.tq-text p + p { margin-top: 0.9em; }
+.tq-who {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px;
+  margin-top: clamp(18px, 2.2vw, 24px); padding-top: 16px; border-top: 1px solid var(--line-2);
+  font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.04em;
+}
+.tq-name { color: var(--ink); font-weight: 600; }
+.tq-role { color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em; font-size: 11.5px; }
+
 /* ---------- About: page header ---------- */
 .page-head { border-bottom: 1px solid var(--line); }
 .page-head-inner { padding: clamp(56px, 10vh, 120px) 0 clamp(44px, 7vh, 80px); }

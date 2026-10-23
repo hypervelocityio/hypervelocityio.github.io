@@ -223,9 +223,14 @@ section { border-bottom: 1px solid var(--line); }
 }
 
 /* ---------- Home: hero testimonials ---------- */
-.hero-quotes { margin-top: clamp(40px, 6vh, 68px); width: 100%; }
+.hero-quotes {
+  margin-top: clamp(40px, 6vh, 68px);
+  /* break out of the 1180px wrap: full viewport width minus the page gutters, capped wider */
+  position: relative; left: 50%; transform: translateX(-50%);
+  width: min(1460px, 100vw - 2 * var(--pad));
+}
 .tq-cards {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 18px;
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 18px;
   margin-top: clamp(18px, 2.6vw, 26px);
 }
 .tq-card {
@@ -236,9 +241,10 @@ section { border-bottom: 1px solid var(--line); }
   padding: clamp(24px, 2.6vw, 32px) clamp(24px, 3vw, 40px) clamp(22px, 2.6vw, 30px);
 }
 .tq-logo { display: block; width: auto; height: clamp(24px, 2.4vw, 30px); }
+.tq-logo.tall { height: clamp(42px, 3.8vw, 50px); }
 .tq-text {
   margin: 0; padding-top: clamp(14px, 1.6vw, 20px);
-  font-size: clamp(16px, 1.35vw, 19px); font-weight: 400; line-height: 1.55;
+  font-size: clamp(14.5px, 1.1vw, 16px); font-weight: 400; line-height: 1.6;
   letter-spacing: -0.012em; color: var(--ink); text-wrap: pretty;
 }
 .tq-text p { margin: 0; }
